@@ -1,0 +1,1660 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Kerala Service Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Anek+Malayalam:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Slack-style workspace (mode rail · sidebar with booking channels · conversation + details pane) on desktop;
+   Revolut-style single column with hero balance card, round quick actions and a bottom tab bar on phones. */
+:root{
+  --bg:#FFFFFF; --app:#F3F5FA; --surface:#FFFFFF; --sunk:#EEF1F8; --hover:#F6F8FC; --ink:#12182B; --muted:#5B6479; --line:#E2E7F1;
+  --rail:#091233; --side:#0E1C4D; --side-ink:#C9D4F2; --side-dim:#8E9DCB; --side-strong:#FFFFFF; --side-active:#3461F0; --side-hover:rgba(255,255,255,.08); --side-line:rgba(255,255,255,.10);
+  --accent:#2F5BEA; --accent-ink:#FFFFFF; --accent-soft:#E7EDFD; --gold:#C2913A;
+  --hero1:#1A2A9E; --hero2:#3366F5; --hero3:#5DA8FF; --hero-ink:#FFFFFF; --hero-dim:rgba(255,255,255,.78); --hero-glass:rgba(255,255,255,.16);
+  --ok:#17763F; --ok-soft:#DEF2E5; --warn:#8A5700; --warn-soft:#FBEED3; --bad:#B42318; --bad-soft:#FBE3E0; --info:#2455A4; --info-soft:#E0E9F8;
+  --dot-ok:#3DBE7C; --dot-warn:#E5A233; --dot-bad:#E8605A; --dot-info:#6E9FF0;
+  --av1:#2C7A59; --av2:#B06A27; --av3:#3A60A6; --av4:#8A4688; --av5:#AE3846; --av6:#557A1E; --av-ink:#FFFFFF;
+  --shadow:0 1px 2px rgba(16,40,30,.06),0 8px 24px rgba(16,40,30,.06);
+  --f-ui:'Plus Jakarta Sans','Anek Malayalam','Noto Sans Malayalam',system-ui,sans-serif;
+  --f-ml:'Anek Malayalam','Noto Sans Malayalam',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11141C; --app:#0B0E14; --surface:#171B25; --sunk:#1F2430; --hover:#1A1F2A; --ink:#E7EAF3; --muted:#9AA3B8; --line:#2A3040;
+  --rail:#050914; --side:#0A1330; --side-ink:#C2CCEA; --side-dim:#7C89B3; --side-strong:#FFFFFF; --side-active:#3B66F0; --side-hover:rgba(255,255,255,.07); --side-line:rgba(255,255,255,.08);
+  --accent:#6E9BFF; --accent-ink:#071233; --accent-soft:#18234A; --gold:#D9AE5E;
+  --hero1:#18258F; --hero2:#2E5BE0; --hero3:#4E90F2; --hero-ink:#FFFFFF; --hero-dim:rgba(255,255,255,.76); --hero-glass:rgba(255,255,255,.13);
+  --ok:#6FD39A; --ok-soft:#163326; --warn:#E8B55B; --warn-soft:#33281A; --bad:#F2857C; --bad-soft:#3A1D1A; --info:#8FB5F2; --info-soft:#1B2740;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#11141C; --app:#0B0E14; --surface:#171B25; --sunk:#1F2430; --hover:#1A1F2A; --ink:#E7EAF3; --muted:#9AA3B8; --line:#2A3040;
+  --rail:#050914; --side:#0A1330; --side-ink:#C2CCEA; --side-dim:#7C89B3; --side-strong:#FFFFFF; --side-active:#3B66F0; --side-hover:rgba(255,255,255,.07); --side-line:rgba(255,255,255,.08);
+  --accent:#6E9BFF; --accent-ink:#071233; --accent-soft:#18234A; --gold:#D9AE5E;
+  --hero1:#18258F; --hero2:#2E5BE0; --hero3:#4E90F2; --hero-ink:#FFFFFF; --hero-dim:rgba(255,255,255,.76); --hero-glass:rgba(255,255,255,.13);
+  --ok:#6FD39A; --ok-soft:#163326; --warn:#E8B55B; --warn-soft:#33281A; --bad:#F2857C; --bad-soft:#3A1D1A; --info:#8FB5F2; --info-soft:#1B2740;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--app);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
+h1,h2,h3{margin:0;line-height:1.2;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:1.15rem;font-weight:800}
+h2{font-size:1.05rem;font-weight:800}
+h3{font-size:.95rem;font-weight:800}
+p{margin:0}
+a{color:var(--accent)}
+:lang(ml) body,.ml{font-family:var(--f-ml)}
+.mono{font-family:var(--f-mono);font-size:.86em}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.eyebrow{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:800;display:flex;align-items:center;gap:6px}
+svg{flex:none}
+
+/* ---------- app frame ---------- */
+.app{display:grid;grid-template-columns:72px 268px minmax(0,1fr);grid-template-rows:minmax(0,1fr);height:100%}
+.app.guest{grid-template-columns:minmax(0,1fr)}
+.app.guest .rail,.app.guest .side,.app.guest .tabbar{display:none}
+.rail{background:var(--rail);display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 0;min-height:0}
+.side{background:var(--side);color:var(--side-ink);overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding-bottom:16px;min-height:0}
+.main{background:var(--bg);display:flex;flex-direction:column;min-width:0;min-height:0;position:relative}
+.tabbar{display:none}
+
+.brand{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--hero2),var(--hero3));color:var(--hero-ink);font-family:var(--f-ml);font-weight:800;font-size:1.45rem;display:grid;place-items:center;margin-bottom:10px;line-height:1}
+.rail-btn{width:56px;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;color:var(--side-dim);font:inherit;font-size:.66rem;font-weight:700;cursor:pointer;padding:4px 0}
+.rail-btn .tile{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--side-hover);color:var(--side-ink);border:2px solid transparent}
+.rail-btn[aria-pressed="true"]{color:var(--side-strong)}
+.rail-btn[aria-pressed="true"] .tile{background:var(--side-active);color:var(--side-strong);border-color:var(--side-strong)}
+.rail-btn:hover .tile{border-color:var(--side-dim)}
+.rail-foot{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:10px}
+.rail-lang{background:var(--side-hover);border:0;color:var(--side-ink);font:inherit;font-weight:800;font-size:.8rem;width:40px;height:30px;border-radius:8px;cursor:pointer}
+.rail-me{background:none;border:0;padding:0;cursor:pointer;border-radius:10px}
+
+.side-head{padding:14px 16px 12px;border-bottom:1px solid var(--side-line);display:flex;flex-direction:column;gap:2px}
+.side-head b{color:var(--side-strong);font-size:1rem;font-weight:800}
+.side-head span{font-size:.8rem;color:var(--side-dim);display:flex;align-items:center;gap:6px}
+.side-head i{width:8px;height:8px;border-radius:50%;background:var(--dot-ok);display:inline-block}
+.side-nav{display:flex;flex-direction:column;gap:1px;padding:10px 0 4px}
+.nav-item,.chan{display:flex;align-items:center;gap:10px;width:calc(100% - 16px);margin:0 8px;padding:6px 10px;border-radius:7px;background:none;border:0;color:var(--side-ink);font:inherit;font-size:.92rem;font-weight:600;text-align:left;cursor:pointer;min-height:34px}
+.nav-item:hover,.chan:hover{background:var(--side-hover)}
+.nav-item[aria-current="page"],.chan[aria-current="page"]{background:var(--side-active);color:var(--side-strong)}
+.side-sec{display:flex;flex-direction:column;gap:1px;padding-top:10px}
+.side-sec-h{display:flex;align-items:center;justify-content:space-between;padding:4px 18px;font-size:.78rem;font-weight:800;color:var(--side-dim);letter-spacing:.02em}
+.side-add{background:none;border:0;color:var(--side-dim);cursor:pointer;width:24px;height:24px;border-radius:6px;display:grid;place-items:center}
+.side-add:hover{background:var(--side-hover);color:var(--side-strong)}
+.chan .cn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chan .cm{font-size:.72rem;color:var(--side-dim);font-family:var(--f-mono)}
+.chan.unread .cn{color:var(--side-strong);font-weight:800}
+.chan[aria-current="page"] .cm{color:var(--side-strong)}
+.sdot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--side-dim)}
+.sdot.ok{background:var(--dot-ok)}.sdot.warn{background:var(--dot-warn)}.sdot.bad{background:var(--dot-bad)}.sdot.info{background:var(--dot-info)}
+.badge{background:var(--dot-bad);color:var(--av-ink);border-radius:999px;font-size:.68rem;font-weight:800;min-width:18px;height:18px;padding:0 5px;display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
+.side-empty{padding:4px 18px;font-size:.82rem;color:var(--side-dim)}
+
+/* ---------- page chrome ---------- */
+.phead{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--line);min-height:60px;background:var(--bg);flex:none}
+.phead-t{min-width:0;flex:1}
+.phead-t h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phead-t p{font-size:.82rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phead-r{display:flex;align-items:center;gap:8px;flex:none}
+.iconbtn{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:inline-grid;place-items:center;cursor:pointer;flex:none}
+.iconbtn:hover{background:var(--hover)}
+.phead .back{display:none;border:0;background:none;margin-left:-8px}
+.scroll{flex:1;overflow-y:auto;min-height:0}
+.page{max-width:960px;margin:0 auto;padding:22px 24px 56px;display:flex;flex-direction:column;gap:24px}
+.page > *{min-width:0}
+section{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.linkbtn{background:none;border:0;color:var(--accent);font:inherit;font-weight:700;cursor:pointer;padding:4px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.spread{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.grid > *{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.plain{display:flex;flex-direction:column;gap:12px;min-width:0}
+.empty{padding:28px 20px;border:1px dashed var(--line);border-radius:18px;text-align:center;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:10px}
+.banner{display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:14px;background:var(--info-soft);color:var(--ink);font-size:.88rem}
+.banner > span:not(.otpbox){flex:1;min-width:0}
+.banner .btn{flex:none}
+.banner.warn{background:var(--warn-soft)}
+.banner.bad{background:var(--bad-soft)}
+.banner.ok{background:var(--ok-soft)}
+
+/* ---------- controls ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.quiet{background:var(--sunk);border-color:var(--sunk);color:var(--ink)}
+.btn.danger{background:var(--bad);border-color:var(--bad);color:var(--av-ink)}
+.btn.sm{min-height:34px;padding:0 14px;font-size:.88rem}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+:focus-visible{outline:3px solid var(--hero3);outline-offset:2px}
+form{display:flex;flex-direction:column;gap:14px;margin:0}
+.fields{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.fields > *{min-width:0}
+label.f{display:flex;flex-direction:column;gap:5px;font-weight:700;font-size:.88rem}
+label.f small{font-weight:500;color:var(--muted)}
+input,select,textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+textarea{min-height:88px;resize:vertical}
+label.check{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;cursor:pointer;font-weight:500}
+label.check input{width:20px;height:20px;min-height:20px;margin-top:2px;flex:none;accent-color:var(--accent);box-shadow:none}
+fieldset{border:1px solid var(--line);border-radius:18px;padding:14px 16px 16px;margin:0;display:flex;flex-direction:column;gap:12px;min-width:0;background:var(--surface)}
+legend{font-weight:800;padding:0 6px}
+.seg{display:inline-flex;border-radius:999px;padding:3px;background:var(--sunk)}
+.seg button{border:0;background:none;font:inherit;font-size:.85rem;font-weight:700;color:var(--muted);padding:6px 14px;border-radius:999px;min-height:34px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.bad{background:var(--bad-soft);color:var(--bad)}.pill.info{background:var(--info-soft);color:var(--info)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.chip.gold{background:transparent;box-shadow:inset 0 0 0 1px var(--gold);color:var(--gold)}
+.stars{color:var(--gold);letter-spacing:1px}
+.av{display:inline-grid;place-items:center;color:var(--av-ink);font-weight:800;border-radius:9px;flex:none;line-height:1;text-transform:uppercase}
+.av.round{border-radius:50%}
+.otpbox{font-family:var(--f-mono);font-size:1.5rem;letter-spacing:.3em;padding:6px 14px;border-radius:10px;background:var(--surface);display:inline-block}
+
+/* ---------- Revolut-style hero, quick actions, lists ---------- */
+.hero{background:linear-gradient(135deg,var(--hero1) 0%,var(--hero2) 55%,var(--hero3) 100%);color:var(--hero-ink);border-radius:24px;padding:22px 22px 26px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.hero .lbl{color:var(--hero-dim);font-size:.85rem;font-weight:700}
+.hero .big{font-size:clamp(2.1rem,6vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.hero .big small{font-size:.5em;font-weight:700;opacity:.8}
+.hero .sub{color:var(--hero-dim);font-size:.9rem}
+.hero .strip{background:var(--hero-glass);border-radius:16px;padding:12px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hero .strip > div{flex:1;min-width:160px}
+.hero .strip b{display:block}
+.hero .btn{background:var(--hero-ink);color:var(--hero2);border-color:var(--hero-ink)}
+.hero .btn.ghost{background:transparent;color:var(--hero-ink);border-color:var(--hero-dim)}
+.hero h2{font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800;letter-spacing:-.02em}
+.qa{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.qa button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:7px;font:inherit;font-size:.78rem;font-weight:700;color:var(--ink);cursor:pointer;padding:4px 2px;text-align:center;line-height:1.2}
+.qa .ci{width:54px;height:54px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;position:relative}
+.qa button:hover .ci{background:var(--accent);color:var(--accent-ink)}
+.qa .ci .badge{position:absolute;top:-2px;right:-2px}
+.group{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.ri{display:flex;align-items:center;gap:12px;padding:12px 16px;border:0;border-bottom:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;width:100%;min-width:0}
+.ri:last-child{border-bottom:0}
+button.ri,.ri[data-go]{cursor:pointer}
+button.ri:hover,.ri[data-go]:hover{background:var(--hover)}
+.ri-ico{width:42px;height:42px;border-radius:50%;background:var(--sunk);color:var(--muted);display:grid;place-items:center;flex:none}
+.ri-ico.pos{background:var(--ok-soft);color:var(--ok)}
+.ri-ico.acc{background:var(--accent-soft);color:var(--accent)}
+.ri-ico.warn{background:var(--warn-soft);color:var(--warn)}
+.ri-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.ri-t{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ri-s{color:var(--muted);font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ri-r{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.amt{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt.pos{color:var(--ok)}
+.ri.unread .ri-t{font-weight:800}
+.ri .when{font-size:.75rem;color:var(--muted);white-space:nowrap}
+.daylabel{font-size:.8rem;font-weight:800;color:var(--muted);padding:2px 4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.stat span{font-size:.78rem;font-weight:700;color:var(--muted)}
+.stat b{font-size:1.35rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* ---------- find & book ---------- */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.tile{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--surface);text-align:left;font:inherit;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:1px;min-width:0}
+.tile span{font-size:.8rem;color:var(--muted)}
+.tile[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.helper{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px 14px;align-items:start;padding:16px;border-bottom:1px solid var(--line)}
+.helper:last-child{border-bottom:0}
+.helper .hm{display:flex;flex-direction:column;gap:3px;min-width:0}
+.helper .hp{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.helper .price{font-weight:800;font-size:1.1rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.score{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--sunk);width:100%;max-width:200px;margin-top:4px}
+.score i{display:block;height:100%}
+.booklayout{display:grid;gap:20px;grid-template-columns:minmax(0,1fr) 320px;align-items:start}
+.summary{position:sticky;top:0}
+.summary .total{font-size:1.8rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.ledger{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.9rem}
+.ledger td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+.ledger td:last-child{text-align:right;white-space:nowrap;padding-left:12px}
+.ledger tr.total td{border-bottom:0;border-top:2px solid var(--ink);font-weight:800;padding-top:8px}
+.ledger tr.sep td{border-bottom:0;padding-top:12px;color:var(--muted);font-size:.8rem}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+table.data{border-collapse:collapse;width:100%;min-width:640px;font-size:.9rem;font-variant-numeric:tabular-nums}
+table.data th,table.data td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.data th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+table.data tr:last-child td{border-bottom:0}
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.timeline li{display:grid;grid-template-columns:14px 1fr;gap:10px;padding-bottom:10px;position:relative}
+.timeline li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:6px}
+.timeline li::after{content:"";position:absolute;left:4px;top:18px;bottom:0;width:2px;background:var(--line)}
+.timeline li:last-child::after{display:none}
+
+/* ---------- Slack-style conversation ---------- */
+.chat-head .phead-t h1{font-size:1.02rem}
+.chatwrap{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 360px;position:relative}
+.convo{display:flex;flex-direction:column;min-height:0;min-width:0}
+.feed{flex:1;overflow-y:auto;padding:0 0 10px;min-height:0}
+.intro{padding:24px 20px 10px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.intro-ico{width:56px;height:56px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.intro h2{font-size:1.35rem}
+.intro p{color:var(--muted);max-width:62ch}
+.daydiv{display:flex;align-items:center;gap:12px;margin:14px 20px 4px;color:var(--muted);font-size:.76rem;font-weight:800}
+.daydiv::before,.daydiv::after{content:"";flex:1;height:1px;background:var(--line)}
+.daydiv span{border:1px solid var(--line);border-radius:999px;padding:2px 12px;background:var(--bg)}
+.msg{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;padding:6px 20px}
+.msg:hover{background:var(--hover)}
+.msg.cont{padding-top:1px;padding-bottom:3px}
+.msg.cont > .av{visibility:hidden;height:1px}
+.mh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.mh b{font-weight:800}
+.mh time{font-size:.74rem;color:var(--muted)}
+.mtext{white-space:pre-wrap;overflow-wrap:anywhere}
+.tag{font-size:.62rem;font-weight:800;letter-spacing:.06em;background:var(--sunk);color:var(--muted);padding:1px 5px;border-radius:4px;align-self:center}
+.sys{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;align-items:center;padding:3px 20px;color:var(--muted);font-size:.86rem}
+.sys .si{width:24px;height:24px;border-radius:50%;background:var(--sunk);display:grid;place-items:center;justify-self:center;color:var(--muted)}
+.sys .si.ok{background:var(--ok-soft);color:var(--ok)}.sys .si.bad{background:var(--bad-soft);color:var(--bad)}.sys .si.acc{background:var(--accent-soft);color:var(--accent)}
+.sys b{color:var(--ink);font-weight:700}
+.sys time{font-size:.74rem;margin-left:6px}
+.bot .block{border-left:4px solid var(--accent);padding:10px 14px;background:var(--sunk);border-radius:0 12px 12px 0;display:flex;flex-direction:column;gap:10px;margin-top:4px;max-width:640px}
+.bot .block.warn{border-left-color:var(--dot-warn)}
+.bot .block form{gap:10px}
+.brandav{background:linear-gradient(135deg,var(--hero2),var(--hero3));color:var(--hero-ink);font-family:var(--f-ml);font-size:1.1rem}
+.composer{margin:0 20px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);display:flex;flex-direction:column;gap:0;flex:none}
+.composer:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.composer textarea{border:0;min-height:46px;max-height:160px;resize:none;background:transparent;padding:12px 14px 4px;box-shadow:none;border-radius:14px}
+.composer-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 6px 6px 14px}
+.send{margin-left:auto;width:38px;height:38px;border-radius:10px;background:var(--accent);color:var(--accent-ink);border:0;display:grid;place-items:center;cursor:pointer}
+.closed-note{margin:0 20px 16px;padding:12px 14px;border-radius:14px;background:var(--sunk);color:var(--muted);font-size:.88rem;flex:none}
+.details{border-left:1px solid var(--line);overflow-y:auto;background:var(--bg);min-height:0}
+.details-h{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:1}
+.details-h .iconbtn{display:none}
+.dsec{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.dsec h3{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.9rem}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;overflow-wrap:anywhere}
+.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.items li{display:flex;flex-direction:column;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.items li:last-child{border-bottom:0;padding-bottom:0}
+.dtoggle{display:none}
+.phead .menu{display:none;border:0;background:none;margin-left:-8px}
+.scrim{display:none}
+.side-modes{display:none;margin-top:10px;background:var(--side-hover)}
+.side-modes button{color:var(--side-dim);padding:5px 10px;min-height:30px;font-size:.8rem}
+.side-modes button[aria-pressed="true"]{background:var(--side-active);color:var(--side-strong);box-shadow:none}
+
+/* ---------- login ---------- */
+.login{min-height:100%;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.login-hero{background:linear-gradient(150deg,var(--hero1) 0%,var(--hero2) 55%,var(--hero3) 100%);color:var(--hero-ink);padding:48px 44px;display:flex;flex-direction:column;gap:22px;justify-content:center;position:relative}
+.login-hero h1{font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.1;letter-spacing:-.025em;max-width:16ch}
+.login-hero p{color:var(--hero-dim);max-width:46ch}
+.login-hero ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.login-hero li{display:flex;gap:12px;align-items:center;font-weight:700}
+.login-hero li span{width:40px;height:40px;border-radius:50%;background:var(--hero-glass);display:grid;place-items:center}
+.login-side{display:flex;align-items:center;justify-content:center;padding:32px 20px;background:var(--bg)}
+.login-card{width:100%;max-width:400px;display:flex;flex-direction:column;gap:18px}
+.login-card h2{font-size:1.6rem;letter-spacing:-.02em}
+.phone{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.phone:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.phone span{display:grid;place-items:center;padding:0 12px;font-weight:800;background:var(--sunk);color:var(--muted)}
+.phone input{border:0;border-radius:0;box-shadow:none;font-size:1.15rem;letter-spacing:.04em;min-height:54px}
+
+/* ---------- sheets & toasts ---------- */
+#sheet{position:fixed;inset:0;z-index:20;background:rgba(5,15,10,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px}
+#sheet .panel{background:var(--surface);color:var(--ink);border-radius:22px;padding:22px;width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px;margin-bottom:env(safe-area-inset-bottom,0px);box-shadow:var(--shadow)}
+#sheet .bigamt{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;width:max-content;max-width:min(92vw,520px);display:flex;flex-direction:column;gap:8px}
+#toast div{background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:14px;font-size:.92rem;box-shadow:var(--shadow);font-weight:600}
+#toast div.bad{background:var(--bad);color:var(--av-ink)}
+@media (prefers-reduced-motion:no-preference){#toast div{animation:up .2s ease-out}@keyframes up{from{transform:translateY(8px);opacity:.4}}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1200px){
+  .chatwrap{grid-template-columns:minmax(0,1fr)}
+  .details{display:none;position:absolute;top:0;right:0;bottom:0;width:min(380px,100%);box-shadow:-12px 0 32px rgba(0,0,0,.18);z-index:4}
+  .chatwrap.show-details .details{display:block}
+  .details-h .iconbtn,.dtoggle{display:inline-grid}
+}
+@media (max-width:980px){ .booklayout{grid-template-columns:minmax(0,1fr)} .summary{position:static} }
+@media (max-width:899px){
+  .app{grid-template-columns:240px minmax(0,1fr)}
+  .rail{display:none}
+  .side-modes{display:inline-flex}
+}
+@media (max-width:599px){
+  body{font-size:16px}
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+  .rail,.side{display:none}
+  .phead .menu{display:inline-grid}
+  .app.drawer .rail,.app.drawer .side{display:flex;position:fixed;top:0;bottom:0;z-index:16;padding-top:env(safe-area-inset-top,0px)}
+  .app.drawer .rail{left:0;width:72px}
+  .app.drawer .side{left:72px;width:min(290px,calc(100vw - 72px));box-shadow:12px 0 32px rgba(0,0,0,.3)}
+  .app.drawer .side-modes{display:none}
+  .app.drawer .scrim{display:block;position:fixed;inset:0;background:rgba(5,15,10,.5);z-index:15}
+  .tabbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);padding:6px 4px}
+  .tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;font-size:.7rem;font-weight:700;color:var(--muted);padding:4px 0;cursor:pointer;position:relative;min-height:48px;justify-content:center}
+  .tab[aria-current="page"]{color:var(--accent)}
+  .tab .badge{position:absolute;top:0;left:calc(50% + 6px)}
+  .phead{padding:8px 16px;min-height:56px}
+  .phead .back{display:inline-grid}
+  .page{padding:16px 16px 32px;gap:20px}
+  .feed .msg,.feed .sys{padding-left:14px;padding-right:14px}
+  .intro,.daydiv{padding-left:14px;padding-right:14px;margin-left:0;margin-right:0}
+  .composer,.closed-note{margin:0 10px 10px}
+  .composer-bar .hint{display:none}
+  .login{grid-template-columns:minmax(0,1fr)}
+  .login-hero{padding:32px 20px 36px}
+  .qa{gap:2px}
+  .qa .ci{width:50px;height:50px}
+  .helper{grid-template-columns:auto minmax(0,1fr)}
+  .helper .hp{grid-column:1 / -1;flex-direction:row;justify-content:space-between;align-items:center}
+  #toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .phead-r .pill{display:none}
+}
+</style>
+
+<div class="app guest" id="app">
+  <aside class="rail" id="rail" aria-label="Workspace"></aside>
+  <aside class="side" id="side" aria-label="Navigation"></aside>
+  <main class="main" id="main"><div class="scroll"><div class="page"><div class="empty">Loading Kerala Service Connect…</div></div></div></main>
+  <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
+  <div class="scrim" data-act="menu" aria-hidden="true"></div>
+</div>
+<div id="sheet" hidden></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+
+<script>
+"use strict";
+/* ---------- reference data (pilot) ---------- */
+const CATS = {
+  ELDERLY:{en:"Elderly companionship", ml:"മുതിർന്നവർക്ക് കൂട്ട്", rule:"Non-clinical help only. Helpers never give medication or nursing care. Beneficiary consent and an emergency contact are required."},
+  SHOPPING:{en:"Shopping & errands", ml:"ഷോപ്പിംഗും ചെറിയ ജോലികളും", rule:"You set a spending cap. Helpers upload itemised receipts and ask before substituting anything. Purchases are kept separate from the helper's fee."},
+  GOVERNMENT:{en:"Government & document help", ml:"സർക്കാർ രേഖാ സഹായം", rule:"Guidance and lawful submission only. No impersonation, signatures or unofficial payments. Official fees are paid at the office and never pass through the helper's fee."}
+};
+const SERVICES = [
+  {code:"ELDERLY_WALKING", cat:"ELDERLY", en:"Walking companion", ml:"നടക്കാൻ കൂട്ട്", mode:"HOURLY", min:60, rate:200},
+  {code:"ELDERLY_HOSPITAL", cat:"ELDERLY", en:"Hospital accompaniment", ml:"ആശുപത്രിയിലേക്ക് കൂട്ട്", mode:"HOURLY", min:120, rate:250},
+  {code:"ELDERLY_VISIT", cat:"ELDERLY", en:"Social visit & conversation", ml:"സന്ദർശനവും സംസാരവും", mode:"HOURLY", min:60, rate:180},
+  {code:"ELDERLY_DIGITAL", cat:"ELDERLY", en:"Phone & digital help", ml:"ഫോൺ / ഡിജിറ്റൽ സഹായം", mode:"HOURLY", min:60, rate:200},
+  {code:"SHOP_GROCERY", cat:"SHOPPING", en:"Grocery shopping", ml:"പലചരക്ക് വാങ്ങൽ", mode:"HOURLY", min:60, rate:180},
+  {code:"SHOP_PRESCRIPTION", cat:"SHOPPING", en:"Prescription pickup", ml:"മരുന്ന് വാങ്ങൽ", mode:"FIXED", min:60, rate:150},
+  {code:"SHOP_PARCEL", cat:"SHOPPING", en:"Parcel collection", ml:"പാഴ്സൽ ശേഖരണം", mode:"FIXED", min:60, rate:120},
+  {code:"GOV_AKSHAYA", cat:"GOVERNMENT", en:"Akshaya centre visit", ml:"അക്ഷയ കേന്ദ്ര സന്ദർശനം", mode:"HOURLY", min:120, rate:220},
+  {code:"GOV_CERTIFICATE", cat:"GOVERNMENT", en:"Certificate application guidance", ml:"സർട്ടിഫിക്കറ്റ് അപേക്ഷാ സഹായം", mode:"FIXED", min:120, rate:400},
+  {code:"GOV_FOLLOWUP", cat:"GOVERNMENT", en:"Application status follow-up", ml:"അപേക്ഷാ സ്ഥിതി അന്വേഷണം", mode:"FIXED", min:60, rate:150}
+];
+const SVC = Object.fromEntries(SERVICES.map(s=>[s.code,s]));
+/* Illustrative pilot wards with centroid offsets in km (replace with real municipality data) */
+const WARDS = [
+  {id:"W01",name:"Ward 1 · Market Junction",x:0,y:0},
+  {id:"W02",name:"Ward 2 · Temple Road",x:1.2,y:.8},
+  {id:"W03",name:"Ward 3 · Railway Station",x:-1.5,y:1.1},
+  {id:"W04",name:"Ward 4 · Hospital Junction",x:.6,y:-1.4},
+  {id:"W05",name:"Ward 5 · Canal Side",x:2.8,y:-.6},
+  {id:"W06",name:"Ward 6 · College Road",x:-2.4,y:-1.9},
+  {id:"W07",name:"Ward 7 · Bus Stand",x:.2,y:2.6},
+  {id:"W08",name:"Ward 8 · Panchayat Office",x:3.9,y:2.2}
+];
+const WARD = Object.fromEntries(WARDS.map(w=>[w.id,w]));
+const GOV_OFFICES = ["Akshaya centre","Village office","Municipal office","Taluk office","Sub-registrar office","Other office"];
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const ACTIVE = ["ACCEPTED","CONFIRMED","IN_PROGRESS"];
+const FEES = {platformPct:8, gstPct:18, commissionPct:10, travelP:4000, travelFreeKm:2};
+const GATEWAY_SECRET = "ksc-test-webhook-secret"; /* test mode only; the real secret lives on the server */
+
+const CAT_ICON = {ELDERLY:"heart", SHOPPING:"cart", GOVERNMENT:"doc"};
+const L = {
+  en:{tag:"Trusted local helpers for your family", home:"Home", find:"Find a helper", chats:"Chats", wallet:"Wallet", me:"You", earnings:"Earnings", dashboard:"Dashboard", profile:"Helper profile", signout:"Sign out", signin:"Sign in", mobile:"Mobile number", sendOtp:"Send code", otp:"6-digit code", verify:"Verify and continue", name:"Your name", book:"Request booking", pay:"Pay", cancel:"Cancel booking", accept:"Accept", reject:"Decline", checkin:"Check in", checkout:"Check out & complete", review:"Rate this visit", report:"Report a problem", customer:"Customer", provider:"Helper", operations:"Admin", ELDERLY:CATS.ELDERLY.en, SHOPPING:CATS.SHOPPING.en, GOVERNMENT:CATS.GOVERNMENT.en},
+  ml:{tag:"നിങ്ങളുടെ കുടുംബത്തിന് വിശ്വസ്തരായ പ്രാദേശിക സഹായികൾ", home:"ഹോം", find:"സഹായിയെ കണ്ടെത്തുക", chats:"ചാറ്റുകൾ", wallet:"വാലറ്റ്", me:"ഞാൻ", earnings:"വരുമാനം", dashboard:"ഡാഷ്ബോർഡ്", profile:"സഹായി പ്രൊഫൈൽ", signout:"ലോഗൗട്ട്", signin:"ലോഗിൻ", mobile:"മൊബൈൽ നമ്പർ", sendOtp:"കോഡ് അയയ്ക്കുക", otp:"6 അക്ക കോഡ്", verify:"സ്ഥിരീകരിക്കുക", name:"നിങ്ങളുടെ പേര്", book:"ബുക്ക് ചെയ്യുക", pay:"പണമടയ്ക്കുക", cancel:"റദ്ദാക്കുക", accept:"സ്വീകരിക്കുക", reject:"നിരസിക്കുക", checkin:"ചെക്ക് ഇൻ", checkout:"പൂർത്തിയാക്കുക", review:"അഭിപ്രായം", report:"പ്രശ്നം അറിയിക്കുക", customer:"ഉപഭോക്താവ്", provider:"സഹായി", operations:"അഡ്മിൻ", ELDERLY:CATS.ELDERLY.ml, SHOPPING:CATS.SHOPPING.ml, GOVERNMENT:CATS.GOVERNMENT.ml}
+};
+const STATUS = {
+  REQUESTED:["Requested","info"], ACCEPTED:["Awaiting payment","warn"], CONFIRMED:["Confirmed","ok"], IN_PROGRESS:["In progress","ok"],
+  COMPLETED:["Completed","ok"], SETTLED:["Settled","ok"], REJECTED:["Declined","bad"], EXPIRED:["Expired","bad"], CANCELLED:["Cancelled","bad"], DISPUTED:["Disputed","bad"],
+  PENDING:["Pending review","warn"], APPROVED:["Approved","ok"], SUSPENDED:["Suspended","bad"], OPEN:["Open","bad"], RESOLVED:["Resolved","ok"],
+  OK_B:["Bought","ok"], TO_BUY:["To buy","info"], UNAVAILABLE:["Unavailable","bad"], SUBSTITUTED:["Substituted","info"]
+};
+const ICONS = {
+  home:"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z",
+  search:"M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9.5 16.5L16 16",
+  chat:"M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H9l-5 4z",
+  wallet:"M3 7.5A1.5 1.5 0 0 1 4.5 6h15A1.5 1.5 0 0 1 21 7.5v10a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5zM16 12.5h2M3 9h18",
+  user:"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm-7.5 8a7.5 7.5 0 0 1 15 0",
+  plus:"M12 5v14M5 12h14",
+  send:"M4 12 20 4l-5 16-3.5-6.5z",
+  heart:"M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z",
+  cart:"M3 4h2.2l2.3 10.5h10.8L20.5 7H6.4M9 20h.01M17.5 20h.01",
+  doc:"M7 3h7l4 4v14H7zM14 3v4h4M10 12h6M10 16h6",
+  shield:"M12 3 5 6v5.5c0 4.4 3 7.8 7 9.5 4-1.7 7-5.1 7-9.5V6z",
+  check:"M5 12.5 10 17 19 7.5",
+  alert:"M12 4 2.8 19.5h18.4zM12 10v4M12 16.8v.01",
+  info:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 11v5.5M12 7.8v.01",
+  chart:"M4 20V11M10 20V5M16 20v-8M21 20H3",
+  list:"M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01",
+  briefcase:"M3.5 8.5h17v11h-17zM9 8.5V5.5h6v3M3.5 13h17",
+  x:"M6 6l12 12M18 6 6 18",
+  menu:"M4 6h16M4 12h16M4 18h16",
+  back:"M15 5l-7 7 7 7",
+  clock:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",
+  rupee:"M7 5h10M7 9h10M7 5c5 0 6.5 1.5 6.5 4S12 13 7 13l7.5 7",
+  arrowdown:"M12 5v14M6 13l6 6 6-6",
+  arrowup:"M12 19V5M6 11l6-6 6 6",
+  star:"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z",
+  users:"M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-6 9a6 6 0 0 1 12 0M16 4.3a3.5 3.5 0 0 1 0 6.4M18 20a6 6 0 0 0-2.5-4.9",
+  globe:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18",
+  logout:"M15 4h3.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H15M10 8l-4 4 4 4M6 12h10"
+};
+const ico = (n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICONS[n]||ICONS.info}"/></svg>`;
+
+/* ---------- helpers ---------- */
+const $ = s=>document.querySelector(s);
+const esc = v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clone = o=>JSON.parse(JSON.stringify(o));
+const sleep = ms=>new Promise(r=>setTimeout(r,ms));
+const TAB = "tab-"+Math.random().toString(36).slice(2);
+const inr = p=>"₹"+((p||0)/100).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+const toP = rupees=>Math.round(Number(String(rupees).replace(/[^\d.]/g,""))*100)||0;
+const rid = (n=8)=>Array.from(crypto.getRandomValues(new Uint8Array(n)),b=>"abcdefghjkmnpqrstuvwxyz23456789"[b%31]).join("");
+const nowISO = ()=>new Date().toISOString();
+const t = k=>(L[S.lang]&&L[S.lang][k])||L.en[k]||k;
+const svcName = c=>SVC[c]?(S.lang==="ml"?SVC[c].ml:SVC[c].en):c;
+const fmtDT = iso=>new Date(iso).toLocaleString("en-IN",{timeZone:"Asia/Kolkata",weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+const fmtT = iso=>new Date(iso).toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"numeric",minute:"2-digit"});
+const pill = s=>{const [l,c]=STATUS[s]||[s,""];return `<span class="pill ${c}">${esc(l)}</span>`};
+const stars = n=>"★".repeat(Math.round(n))+"☆".repeat(5-Math.round(n));
+const lsGet = k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
+const lsSet = (k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+function istParts(d){
+  const parts = new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kolkata",weekday:"short",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d);
+  const g = k=>parts.find(p=>p.type===k).value;
+  return {day:DAYS.indexOf(g("weekday")), min:+g("hour")*60+ +g("minute"), date:`${g("year")}-${g("month")}-${g("day")}`};
+}
+const hm = s=>{const [h,m]=String(s||"0:0").split(":").map(Number);return h*60+(m||0)};
+const istDate = d=>istParts(d).date;
+const dist = (a,b)=>{const A=WARD[a],B=WARD[b];return A&&B?Math.hypot(A.x-B.x,A.y-B.y):99};
+async function sha256(s){const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(h),b=>b.toString(16).padStart(2,"0")).join("")}
+function toast(msg,kind){const d=document.createElement("div");if(kind)d.className=kind;d.textContent=msg;$("#toast").appendChild(d);setTimeout(()=>d.remove(),kind==="bad"?6000:3500)}
+
+/* ---------- store: shared artifact database, or this browser when unavailable ---------- */
+const Store = (()=>{
+  let db=null, mode="connecting", resolveReady;
+  const ready = new Promise(r=>resolveReady=r);
+  const local = {data:lsGet("ksc-local")||{}, subs:{}};
+  const persist = ()=>lsSet("ksc-local",local.data);
+  const listLocal = col=>Object.entries(local.data[col]||{}).map(([id,d])=>({...clone(d),id}));
+  const emit = col=>(local.subs[col]||[]).forEach(cb=>cb(listLocal(col)));
+  const strip = o=>{const c=clone(o);delete c.id;return c};
+  const merge = (a,b)=>{const o={...a};for(const k in b){const v=b[k];o[k]=(v&&typeof v==="object"&&!Array.isArray(v)&&o[k]&&typeof o[k]==="object"&&!Array.isArray(o[k]))?merge(o[k],v):v}return o};
+  return {
+    ready, get mode(){return mode},
+    async init(){
+      try{
+        if(window.claude&&window.claude.use){
+          const d = await window.claude.use("db");
+          if(d){ db=d; mode="shared";
+            const u = await window.claude.use("user");
+            S.isOwner = u ? await u.isOwner() : false;
+          }
+        }
+      }catch(e){}
+      if(!db) mode="local";
+      resolveReady();
+    },
+    watch(col,cb){
+      ready.then(()=>{
+        if(db) db.collection(col).onSnapshot(s=>cb(s.docs.map(d=>({...d.data(),id:d.id}))), e=>toast("Live updates stopped ("+e.code+"). Reload the page to reconnect.","bad"));
+        else { (local.subs[col]=local.subs[col]||[]).push(cb); cb(listLocal(col)); }
+      });
+    },
+    async get(col,id){ await ready;
+      if(db){const s=await db.doc(col+"/"+id).get();return s.exists?{...s.data(),id:s.id}:null}
+      const d=(local.data[col]||{})[id]; return d?{...clone(d),id}:null },
+    async where(col,f,v){ await ready;
+      if(db){const s=await db.collection(col).where(f,"==",v).get();return s.docs.map(d=>({...d.data(),id:d.id}))}
+      return listLocal(col).filter(d=>d[f]===v) },
+    async set(col,id,data){ await ready;
+      if(db) return db.doc(col+"/"+id).set(strip(data));
+      (local.data[col]=local.data[col]||{})[id]=strip(data); persist(); emit(col) },
+    async update(col,id,patch){ await ready;
+      if(db) return db.doc(col+"/"+id).update(strip(patch));
+      const c=local.data[col]||{}; if(!c[id]) throw new Error("That record no longer exists.");
+      c[id]=merge(c[id],strip(patch)); persist(); emit(col) },
+    async lock(key,fn){ await ready;
+      if(!db) return fn();
+      const ref=db.doc("locks/"+key);
+      for(let i=0;i<8;i++){ const r=await ref.acquire({holder:TAB,ttlMs:8000}); if(r.acquired) return fn(); await sleep(350+Math.random()*400); }
+      throw new Error("Someone else is updating this booking right now. Try again in a moment.") }
+  };
+})();
+
+/* ---------- app state ---------- */
+const S = {me:null, mode:"customer", lang:lsGet("ksc-lang")||"en", view:"login", p:{}, providers:[], bookings:[], incidents:[], isOwner:false, otp:null, details:false, messages:[], seen:{}, sends:{}, lastEvent:null, sheet:null, busy:false};
+const myProvider = ()=>S.me && S.providers.find(p=>p.id===S.me.mobile);
+const canAdmin = ()=>Store.mode==="local" || S.isOwner;
+const bookingById = id=>S.bookings.find(b=>b.id===id);
+const displayStatus = b=>(b.status==="REQUESTED" && new Date(b.start)<new Date())?"EXPIRED":b.status;
+
+function providerStats(pid){
+  const mine = S.bookings.filter(b=>b.providerId===pid);
+  const reviews = mine.filter(b=>b.review);
+  const decided = mine.filter(b=>b.history&&b.history.some(h=>["ACCEPTED","REJECTED"].includes(h.to)) || displayStatus(b)==="EXPIRED");
+  const accepted = decided.filter(b=>b.history.some(h=>h.to==="ACCEPTED"));
+  return {
+    rating: reviews.length ? reviews.reduce((a,b)=>a+b.review.stars,0)/reviews.length : null,
+    reviews: reviews.length,
+    reliability: decided.length ? accepted.length/decided.length : null,
+    done: mine.filter(b=>["COMPLETED","SETTLED"].includes(b.status)).length
+  };
+}
+function eligible(p, svc, ward, start, end, excludeId){
+  const why=[];
+  if(p.status!=="APPROVED") why.push("not approved");
+  const exp = p.verification&&p.verification.expiresAt;
+  if(!exp || new Date(exp)<end) why.push("verification expired");
+  const offer = (p.services||[]).find(s=>s.code===svc.code);
+  if(!offer) why.push("does not offer this service");
+  if(dist(p.ward,ward)>p.radiusKm) why.push("outside travel radius");
+  const a=istParts(start), b=istParts(new Date(end-1));
+  if(!(p.days||[]).includes(a.day) || a.date!==b.date || a.min<hm(p.from) || b.min+1>hm(p.to)) why.push("not available at that time");
+  if(S.bookings.some(x=>x.providerId===p.id && x.id!==excludeId && ACTIVE.includes(x.status) && new Date(x.start)<end && start<new Date(x.end))) why.push("already booked");
+  return {ok:!why.length, why, offer};
+}
+function rankHelpers(svc, ward, start, end){
+  const pool = S.providers.map(p=>({p,...eligible(p,svc,ward,start,end)})).filter(x=>x.ok);
+  if(!pool.length) return [];
+  const minRate = Math.min(...pool.map(x=>x.offer.rateP));
+  return pool.map(({p,offer})=>{
+    const st=providerStats(p.id), d=dist(p.ward,ward);
+    const repeat = S.bookings.some(b=>b.providerId===p.id && S.me && b.customerMobile===S.me.mobile && ["COMPLETED","SETTLED"].includes(b.status));
+    const parts = {
+      rating:.30*(st.rating==null?.7:st.rating/5),
+      distance:.25*(1-Math.min(1,d/Math.max(p.radiusKm,1))),
+      price:.20*(minRate/offer.rateP),
+      reliability:.15*(st.reliability==null?.8:st.reliability),
+      repeat:.10*(repeat?1:0)
+    };
+    return {p,offer,d,st,repeat,parts,score:Object.values(parts).reduce((a,b)=>a+b,0)};
+  }).sort((a,b)=>b.score-a.score);
+}
+function quote(svc, rateP, durMin, distKm, extra){
+  const billMin = svc.mode==="FIXED" ? null : Math.max(svc.min, Math.ceil(durMin/30)*30);
+  const service = svc.mode==="FIXED" ? rateP : Math.round(rateP*billMin/60);
+  const travel = distKm>FEES.travelFreeKm ? FEES.travelP : 0;
+  const platform = Math.round(service*FEES.platformPct/100);
+  const gst = Math.round(platform*FEES.gstPct/100);
+  const total = service+travel+platform+gst;
+  const advance = (extra&&extra.budgetP)||0;
+  return {rateP, mode:svc.mode, billMin, service, travel, platform, gst, total, advance, officialFees:(extra&&extra.feesP)||0, payNow:total+advance};
+}
+function money(b){
+  const ok = (b.adjustments||[]).filter(a=>a.status==="APPROVED");
+  const adj = ok.reduce((s,a)=>s+a.amountP,0), adjService = ok.reduce((s,a)=>s+(a.serviceP||0),0);
+  const charges = b.price.total + b.price.advance + adj;
+  const paid = (b.payment&&b.payment.paidP)||0, refunded = b.refundedP||0;
+  const closed=["CANCELLED","REJECTED","EXPIRED"].includes(b.status);
+  return {adj, adjService, charges, paid, refunded, due:closed?0:Math.max(0,charges-paid)};
+}
+function shoppingSpent(b){
+  if(!b.shopping) return 0;
+  return (b.shopping.receipts||[]).reduce((s,r)=>s+r.totalP,0);
+}
+
+/* ---------- people, chats, unread ---------- */
+function avatar(name,id,size=36,round=false){
+  const ini=String(name||"?").trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>Array.from(w)[0]).join("")||"?";
+  let h=0; for(const c of String(id||name||"")) h=(h*31+c.charCodeAt(0))>>>0;
+  return `<span class="av ${round?"round":""}" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.38)}px;background:var(--av${1+h%6})" aria-hidden="true">${esc(ini)}</span>`;
+}
+const seenKey = ()=>"ksc-seen-"+(S.me?S.me.mobile:"");
+function loadSeen(){ S.seen = lsGet(seenKey())||{}; }
+function markSeen(id){ S.seen[id]=nowISO(); lsSet(seenKey(),S.seen); }
+function msgsFor(id){ return S.messages.filter(m=>m.bookingId===id); }
+function unread(b){
+  if(!S.me||S.mode==="admin") return 0;
+  const seen=S.seen[b.id]||""; let n=0;
+  for(const h of b.history||[]) if(h.at>seen && h.by!==S.me.mobile) n++;
+  for(const m of S.messages) if(m.bookingId===b.id && m.at>seen && m.from!==S.me.mobile) n++;
+  return n;
+}
+function lastEvent(b){
+  const lm=msgsFor(b.id).reduce((a,m)=>!a||m.at>a.at?m:a,null);
+  const lh=(b.history||[]).slice(-1)[0];
+  if(lm&&(!lh||lm.at>lh.at)) return {at:lm.at,text:(S.me&&lm.from===S.me.mobile?"You: ":(lm.role==="operations"?"Operations":(lm.name||"Someone"))+": ")+lm.text};
+  return {at:lh?lh.at:b.createdAt,text:lh?(lh.note||(STATUS[lh.to]||[lh.to])[0]):"Booking requested"};
+}
+function chatsFor(){
+  if(!S.me) return [];
+  const list = S.mode==="customer" ? S.bookings.filter(b=>b.customerMobile===S.me.mobile)
+    : S.mode==="provider" ? S.bookings.filter(b=>b.providerId===S.me.mobile) : S.bookings.slice();
+  return list.map(b=>({b,ev:lastEvent(b)})).sort((x,y)=>y.ev.at.localeCompare(x.ev.at));
+}
+const counterpart = b => S.mode==="provider" ? {name:b.customerName,id:b.customerMobile} : {name:b.providerName,id:b.providerId};
+function relTime(iso){
+  const d=new Date(iso), now=new Date();
+  if(istDate(d)===istDate(now)) return fmtT(iso);
+  if(istDate(d)===istDate(new Date(now-864e5))) return "Yesterday";
+  return d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",day:"numeric",month:"short"});
+}
+function dayLabel(day){
+  if(day===istDate(new Date())) return "Today";
+  if(day===istDate(new Date(Date.now()-864e5))) return "Yesterday";
+  return new Date(day+"T12:00:00+05:30").toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",weekday:"long",day:"numeric",month:"long"});
+}
+function txFor(){
+  const out=[]; if(!S.me) return out;
+  const prov=S.mode==="provider";
+  for(const b of S.bookings){
+    if(prov ? b.providerId!==S.me.mobile : b.customerMobile!==S.me.mobile) continue;
+    for(const e of b.ledger||[]){
+      if(prov){ if(e.type==="PROVIDER_PAYOUT") out.push({b,e,title:"Payout · "+svcName(b.serviceCode),sub:b.bookingNo+" · "+b.customerName,amt:e.amountP,sign:1,icon:"arrowdown"}); }
+      else if(e.type==="CUSTOMER_PAYMENT") out.push({b,e,title:svcName(b.serviceCode),sub:"Paid · "+b.providerName+" · "+b.bookingNo,amt:e.amountP,sign:-1,icon:CAT_ICON[b.category]||"rupee"});
+      else if(e.type==="REFUND"||e.type==="PURCHASE_REFUND") out.push({b,e,title:(e.type==="PURCHASE_REFUND"?"Unspent shopping advance":"Refund")+" · "+svcName(b.serviceCode),sub:b.bookingNo,amt:e.amountP,sign:1,icon:"arrowdown"});
+    }
+  }
+  return out.sort((x,y)=>y.e.at.localeCompare(x.e.at));
+}
+const thisMonth = iso => istDate(new Date(iso)).slice(0,7)===istDate(new Date()).slice(0,7);
+function txRow(t){
+  return `<button class="ri" data-go="booking" data-id="${esc(t.b.id)}"><span class="ri-ico ${t.sign>0?"pos":"acc"}">${ico(t.icon)}</span>
+    <span class="ri-main"><span class="ri-t">${esc(t.title)}</span><span class="ri-s">${esc(t.sub)}</span></span>
+    <span class="ri-r"><span class="amt ${t.sign>0?"pos":""}">${t.sign>0?"+":"−"}${inr(t.amt)}</span><span class="when">${esc(relTime(t.e.at))}</span></span></button>`;
+}
+function pendingSettlement(pid){
+  return S.bookings.filter(b=>b.providerId===pid&&["COMPLETED","DISPUTED"].includes(b.status)&&!b.settlement)
+    .reduce((s,b)=>{const m=money(b);const svc=b.price.service+m.adjService;return s+svc+b.price.travel-Math.round(Math.max(0,svc)*FEES.commissionPct/100)+shoppingSpent(b)},0);
+}
+
+/* ---------- navigation & rendering ---------- */
+let lastKey="";
+function go(view,p={}){S.view=view;S.p=p;S.details=false;S.drawer=false;lastKey="";render();}
+const homeOf = m => m==="customer"?"home":m==="provider"?"phome":"admin";
+function navSets(){
+  const unreadAll = chatsFor().reduce((s,c)=>s+unread(c.b),0);
+  if(S.mode==="customer") return {side:[["home",t("home"),"home"],["find",t("find"),"search"],["wallet",t("wallet"),"wallet"]],
+    tabs:[["home",t("home"),"home"],["find","Find","search"],["bookings",t("chats"),"chat",unreadAll],["wallet",t("wallet"),"wallet"],["me",t("me"),"user"]]};
+  if(S.mode==="provider") return {side:[["phome",t("dashboard"),"home"],["wallet",t("earnings"),"wallet"],["pprofile",t("profile"),"briefcase"]],
+    tabs:[["phome",t("home"),"home"],["bookings",t("chats"),"chat",unreadAll],["wallet",t("earnings"),"wallet"],["pprofile","Profile","briefcase"],["me",t("me"),"user"]]};
+  const pend=S.providers.filter(p=>p.status==="PENDING").length, inc=S.incidents.filter(i=>i.status==="OPEN").length;
+  const a=[["admin:approvals","Approvals","users",pend],["admin:bookings","Bookings","list"],["admin:incidents","Incidents","alert",inc],["admin:revenue","Revenue","chart"]];
+  return {side:a, tabs:[...a,["me",t("me"),"user"]]};
+}
+function currentNav(){
+  if(S.view==="admin") return "admin:"+(S.p.tab||"approvals");
+  if(S.view==="booking") return S.mode==="admin"?"admin:bookings":"bookings";
+  if(S.view==="book") return "find";
+  return S.view;
+}
+function rail(){
+  const modes=[["customer","Customer","user"],["provider","Helper","briefcase"]]; if(canAdmin()) modes.push(["admin","Admin","shield"]);
+  return `<div class="brand" title="Kerala Service Connect">ക</div>
+    ${modes.map(([m,l,i])=>`<button class="rail-btn" data-act="mode" data-v="${m}" aria-pressed="${S.mode===m}" title="Use the app as ${l}"><span class="tile">${ico(i)}</span>${l}</button>`).join("")}
+    <div class="rail-foot"><button class="rail-lang" data-act="lang" data-v="${S.lang==="en"?"ml":"en"}" title="Switch language">${S.lang==="en"?"മ":"En"}</button>
+    <button class="rail-me" data-go="me" title="Your account">${avatar(S.me.name,S.me.mobile,36)}</button></div>`;
+}
+function sidebar(){
+  const cur=currentNav(), {side}=navSets();
+  const chats = S.mode==="admin" ? chatsFor().slice(0,14) : chatsFor();
+  const modeName = S.mode==="customer"?"Customer":S.mode==="provider"?"Helper":"Operations";
+  const modes=[["customer","Customer"],["provider","Helper"]]; if(canAdmin()) modes.push(["admin","Admin"]);
+  return `<div class="side-head"><b>Kerala Service Connect</b><span><i></i>${esc(S.me.name||"")} · ${modeName}</span>
+    <div class="seg side-modes" role="group" aria-label="Use the app as">${modes.map(([m,l])=>`<button data-act="mode" data-v="${m}" aria-pressed="${S.mode===m}">${l}</button>`).join("")}</div></div>
+  <nav class="side-nav">${side.map(([v,l,i,n])=>`<button class="nav-item" data-go="${v}" ${cur===v?'aria-current="page"':""}>${ico(i,18)}<span class="cn" style="flex:1">${esc(l)}</span>${n?`<span class="badge">${n}</span>`:""}</button>`).join("")}</nav>
+  <div class="side-sec"><div class="side-sec-h"><span>${S.mode==="admin"?"Recent bookings":"Bookings"}</span>${S.mode==="customer"?`<button class="side-add" data-go="find" aria-label="New booking" title="New booking">${ico("plus",16)}</button>`:""}</div>
+  ${chats.length?chats.map(({b})=>{const u=unread(b), st=(STATUS[displayStatus(b)]||["","info"])[1];
+    return `<button class="chan ${u?"unread":""}" data-go="booking" data-id="${esc(b.id)}" ${S.view==="booking"&&S.p.id===b.id?'aria-current="page"':""}><span class="sdot ${st}"></span><span class="cn">${esc(svcName(b.serviceCode))}</span>${u?`<span class="badge">${u}</span>`:`<span class="cm">${esc(b.bookingNo.slice(-4))}</span>`}</button>`}).join("")
+    :`<p class="side-empty">${S.mode==="customer"?"Your bookings appear here as chats.":"Booking requests appear here."}</p>`}</div>`;
+}
+function tabbar(){
+  const cur=currentNav();
+  return navSets().tabs.map(([v,l,i,n])=>`<button class="tab" data-go="${v}" ${cur===v?'aria-current="page"':""}>${ico(i,22)}<span>${esc(l)}</span>${n?`<span class="badge">${n}</span>`:""}</button>`).join("");
+}
+function page(title,sub,right,body,opts={}){
+  return `<header class="phead"><button class="iconbtn menu" data-act="menu" aria-label="Open sidebar">${ico("menu")}</button>${opts.back?`<button class="iconbtn back" data-go="${opts.back}" aria-label="Back">${ico("back")}</button>`:""}
+    <div class="phead-t"><h1>${title}</h1>${sub?`<p>${sub}</p>`:""}</div>${right?`<div class="phead-r">${right}</div>`:""}</header>
+    <div class="scroll"><div class="page">${body}</div></div>`;
+}
+function render(){
+  const key=S.view+JSON.stringify(S.p);
+  const keep=key===lastKey; lastKey=key;
+  const vals={}, ae=document.activeElement, focusId=ae&&ae.id, sel=ae&&("selectionStart" in ae)?[ae.selectionStart,ae.selectionEnd]:null;
+  const sc=$("#main .scroll"), scTop=sc?sc.scrollTop:0;
+  const feed=$("#main .feed"), nearBottom=feed?feed.scrollHeight-feed.scrollTop-feed.clientHeight<90:true, feedTop=feed?feed.scrollTop:0;
+  const dsc=$("#main .details"), dTop=dsc?dsc.scrollTop:0;
+  if(keep) document.querySelectorAll("#main input[id],#main select[id],#main textarea[id]").forEach(el=>vals[el.id]=el.type==="checkbox"||el.type==="radio"?el.checked:el.value);
+  document.documentElement.lang = S.lang==="ml"?"ml":"en";
+  if(S.me && S.view==="login") S.view=homeOf(S.mode);
+  let html; try{ html = (S.me?(views[S.view]||views.home):views.login)(); }catch(e){ console.error(e); html=page("Something went wrong","","",`<div class="banner bad"><b>This screen failed to load.</b> ${esc(e.message)}</div>`); }
+  $("#app").className="app"+(S.me?"":" guest")+(S.drawer?" drawer":"");
+  $("#rail").innerHTML=S.me?rail():"";
+  $("#side").innerHTML=S.me?sidebar():"";
+  $("#tabbar").innerHTML=S.me?tabbar():"";
+  $("#main").innerHTML=html;
+  if(keep){
+    for(const id in vals){const el=document.getElementById(id);if(!el)continue;if(el.type==="checkbox"||el.type==="radio")el.checked=vals[id];else el.value=vals[id];}
+    if(focusId){const el=document.getElementById(focusId);if(el&&$("#main").contains(el)){el.focus({preventScroll:true});if(sel&&("setSelectionRange" in el))try{el.setSelectionRange(sel[0],sel[1])}catch(e){}}}
+    const s2=$("#main .scroll"); if(s2) s2.scrollTop=scTop;
+    const d2=$("#main .details"); if(d2) d2.scrollTop=dTop;
+  }
+  const f2=$("#main .feed"); if(f2) f2.scrollTop = (!keep||nearBottom) ? f2.scrollHeight : feedTop;
+  autosize();
+  renderSheet();
+}
+function autosize(){ const t=$("#msg-input"); if(t){ t.style.height="auto"; t.style.height=Math.min(160,t.scrollHeight)+"px"; } }
+function modeBanner(){
+  return Store.mode==="local"
+    ? `<div class="banner warn">${ico("alert",18)}<span><b>Demo mode.</b> Your test data is saved only in this browser. Codes show on screen and payments are simulated. Use the Admin switch to approve helpers.</span></div>`
+    : `<div class="banner">${ico("info",18)}<span><b>Test mode.</b> Codes show on screen instead of SMS and payments are simulated. No real money moves.</span></div>`;
+}
+
+/* ---------- views ---------- */
+const views = {};
+views.login = ()=>{
+  const o=S.otp, ml=S.lang==="ml";
+  return `<div class="scroll"><div class="login">
+  <section class="login-hero">
+    <div class="brand" style="margin:0">ക</div>
+    <h1 class="${ml?"ml":""}">${ml?"അമ്മയ്ക്ക് ഒരു കൂട്ട്, വീട്ടിലേക്ക് സാധനങ്ങൾ, ഓഫീസിൽ ഒരു സഹായം.":"Company for Amma, groceries to the door, a hand at the office."}</h1>
+    <p>Book vetted local helpers by the hour. Chat with them, track every visit and pay securely in one place.</p>
+    <ul>${Object.keys(CATS).map(c=>`<li><span>${ico(CAT_ICON[c])}</span>${esc(t(c))}</li>`).join("")}</ul>
+    <p class="small">An independent coordination platform. Not a government agency or a medical provider.</p>
+  </section>
+  <section class="login-side"><div class="login-card">
+    <div class="spread"><span class="eyebrow">Pilot · Kerala</span><div class="seg" role="group" aria-label="Language"><button data-act="lang" data-v="en" aria-pressed="${!ml}">English</button><button data-act="lang" data-v="ml" aria-pressed="${ml}">മലയാളം</button></div></div>
+    ${modeBanner()}
+    ${!o?`<h2>${esc(t("signin"))}</h2>
+      <form data-form="otpRequest">
+        <label class="f" for="l-mobile">${esc(t("mobile"))}<span class="phone"><span>+91</span><input id="l-mobile" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="98470 12345" required></span></label>
+        <button class="btn block" type="submit" style="min-height:52px">${esc(t("sendOtp"))}</button>
+      </form>
+      <p class="small muted">You start as a customer. Switch to Helper from the sidebar. Sample helpers sign in with 9000000001 to 9000000004.</p>
+      ${Store.mode==="local"?`<div class="card" style="gap:12px"><b>Just looking around?</b><span class="small muted">Skip the code and open the demo with a sample booking chat.</span>
+        <div class="row"><button class="btn sm" data-act="demo" data-v="customer">${ico("user",16)} Demo as customer</button><button class="btn ghost sm" data-act="demo" data-v="provider">${ico("briefcase",16)} Demo as helper</button></div></div>`:""}`
+    :`<h2>Enter your code</h2>
+      <p class="muted">Sent to <b class="mono">+91 ${esc(o.mobile)}</b> · <button type="button" class="linkbtn" data-act="otpReset">Change number</button></p>
+      <form data-form="otpVerify">
+        <div class="banner ok"><span>Test SMS</span><span class="otpbox" aria-label="Your code">${esc(o.code)}</span></div>
+        <label class="f" for="l-otp">${esc(t("otp"))}<input id="l-otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required style="font-size:1.3rem;letter-spacing:.3em;min-height:54px"></label>
+        ${o.isNew?`<label class="f" for="l-name">${esc(t("name"))}<input id="l-name" autocomplete="name" required></label>`:""}
+        <button class="btn block" type="submit" style="min-height:52px">${esc(t("verify"))}</button>
+      </form>
+      <p class="small muted">Codes expire in 5 minutes. Five wrong tries lock the number for 5 minutes.</p>`}
+  </div></section></div></div>`;
+};
+
+function needsAttention(){
+  const out=[];
+  for(const b of S.bookings.filter(x=>x.customerMobile===S.me.mobile)){
+    const m=money(b), ds=displayStatus(b);
+    if(ds==="ACCEPTED") out.push({b,icon:"rupee",cls:"warn",t:`Pay ${inr(m.due)} to confirm`,s:`${b.providerName} accepted · ${svcName(b.serviceCode)}`});
+    else if(m.due>0&&["CONFIRMED","IN_PROGRESS","COMPLETED"].includes(b.status)) out.push({b,icon:"rupee",cls:"warn",t:`Balance due ${inr(m.due)}`,s:svcName(b.serviceCode)});
+    (b.adjustments||[]).filter(a=>a.status==="PENDING").forEach(a=>out.push({b,icon:"clock",cls:"warn",t:`Approve ${a.minutes} more minutes?`,s:`${b.providerName} asked · ${inr(a.amountP)}`}));
+    if(b.shopping) b.shopping.items.forEach(it=>{ if(it.sub&&it.sub.status==="PROPOSED") out.push({b,icon:"cart",cls:"warn",t:`Substitute for ${it.name}?`,s:`${b.providerName} suggests ${it.sub.text}`}); });
+    if(["COMPLETED","SETTLED"].includes(b.status)&&!b.review) out.push({b,icon:"star",cls:"acc",t:`Rate your visit with ${b.providerName}`,s:svcName(b.serviceCode)});
+  }
+  return out;
+}
+views.home = ()=>{
+  const mine=S.bookings.filter(b=>b.customerMobile===S.me.mobile);
+  const next=mine.filter(b=>ACTIVE.includes(b.status)||displayStatus(b)==="REQUESTED").sort((a,b)=>a.start.localeCompare(b.start))[0];
+  const tx=txFor(), spent=tx.filter(x=>thisMonth(x.e.at)).reduce((s,x)=>s-x.sign*x.amt,0);
+  const visits=mine.filter(b=>["COMPLETED","SETTLED"].includes(b.status)&&thisMonth(b.start)).length;
+  const att=needsAttention(), unreadAll=chatsFor().reduce((s,c)=>s+unread(c.b),0);
+  const first=(S.me.name||"").split(" ")[0];
+  return page(`Namaskaram, ${esc(first)}`,"",`<button class="btn sm" data-go="find">${ico("plus",16)} Book</button>`,`
+    ${modeBanner()}
+    <section class="hero">
+      <span class="lbl">Spent this month</span>
+      <div class="big">${inr(spent).replace(/\.(\d\d)$/,"<small>.$1</small>")}</div>
+      <span class="sub">${visits} completed visit${visits===1?"":"s"} · every helper verified by our team</span>
+      ${next?`<div class="strip">${avatar(next.providerName,next.providerId,40,true)}<div><span class="lbl">Next · ${esc((STATUS[displayStatus(next)]||[""])[0])}</span><b>${esc(svcName(next.serviceCode))} with ${esc(next.providerName)}</b><span class="sub">${esc(fmtDT(next.start))}</span></div><button class="btn sm" data-go="booking" data-id="${esc(next.id)}">Open chat</button></div>`
+        :`<div class="strip"><div><b>Book trusted help in minutes</b><span class="sub">See the full price before you pay.</span></div><button class="btn sm" data-go="find">Find a helper</button></div>`}
+    </section>
+    <nav class="qa" aria-label="Quick actions">
+      <button data-go="find" data-svc="ELDERLY_WALKING"><span class="ci">${ico("heart",24)}</span>Elderly care</button>
+      <button data-go="find" data-svc="SHOP_GROCERY"><span class="ci">${ico("cart",24)}</span>Shopping</button>
+      <button data-go="find" data-svc="GOV_AKSHAYA"><span class="ci">${ico("doc",24)}</span>Gov. help</button>
+      <button data-go="bookings"><span class="ci">${ico("chat",24)}${unreadAll?`<span class="badge">${unreadAll}</span>`:""}</span>Chats</button>
+      <button data-go="wallet"><span class="ci">${ico("wallet",24)}</span>Wallet</button>
+    </nav>
+    ${att.length?`<section><div class="sh"><h2>Needs your attention</h2></div><div class="group">${att.slice(0,6).map(a=>`<button class="ri" data-go="booking" data-id="${esc(a.b.id)}"><span class="ri-ico ${a.cls}">${ico(a.icon)}</span><span class="ri-main"><span class="ri-t">${esc(a.t)}</span><span class="ri-s">${esc(a.s)}</span></span>${ico("back",16).replace("<svg","<svg style=\"transform:rotate(180deg);color:var(--muted)\"")}</button>`).join("")}</div></section>`:""}
+    <section><div class="sh"><h2>Recent activity</h2>${tx.length?`<button class="linkbtn" data-go="wallet">See all</button>`:""}</div>
+      ${tx.length?`<div class="group">${tx.slice(0,5).map(txRow).join("")}</div>`:`<div class="empty">${ico("wallet",28)}<span>Payments and refunds appear here once you book.</span></div>`}</section>
+    <section><h2>What we help with</h2><div class="grid">${Object.keys(CATS).map(c=>`<div class="card"><div class="row"><span class="ri-ico acc">${ico(CAT_ICON[c])}</span><div><h3>${esc(t(c))}</h3><span class="small muted ml">${esc(S.lang==="ml"?CATS[c].en:CATS[c].ml)}</span></div></div><p class="small muted">${esc(CATS[c].rule)}</p></div>`).join("")}</div></section>`);
+};
+
+function defaultSlot(){ const d=new Date(Date.now()+86400000); return {date:istDate(d),time:"09:00",dur:"120"}; }
+function readFind(){ const v=id=>{const el=document.getElementById(id);return el?el.value:undefined}; return {ward:v("s-ward"),date:v("s-date"),time:v("s-time"),dur:v("s-dur")}; }
+views.find = ()=>{
+  const p=S.p, def=defaultSlot();
+  const code=p.svc||"ELDERLY_WALKING", date=p.date||def.date, time=p.time||def.time, dur=p.dur||def.dur, ward=p.ward||"W01";
+  let results="";
+  if(p.run){
+    const svc=SVC[code], start=new Date(`${date}T${time}:00+05:30`), end=new Date(start.getTime()+(+dur)*60000);
+    if(start<new Date()) results=`<div class="banner bad">${ico("alert",18)} Pick a start time in the future.</div>`;
+    else{
+      const list=rankHelpers(svc,ward,start,end);
+      const near=S.providers.filter(x=>x.status==="APPROVED"&&(x.services||[]).some(s=>s.code===code)).length;
+      results = list.length ? `<section><div class="sh"><h2>${list.length} helper${list.length>1?"s":""} free</h2><span class="small muted">${esc(fmtDT(start.toISOString()))} – ${esc(fmtT(end.toISOString()))}</span></div>
+        <div class="group">${list.map(r=>helperRow(r,{code,date,time,dur,ward})).join("")}</div>
+        <p class="small muted">Ranked by rating 30%, distance 25%, price 20%, reliability 15% and repeat visits 10%.</p></section>`
+        : `<div class="empty">${ico("search",28)}<span>No helper is free for that slot. ${near?`${near} approved helper${near>1?"s offer":" offers"} this service. Try another time or a shorter visit.`:"No approved helper offers this service yet."}</span></div>`;
+    }
+  }
+  return page(esc(t("find")),"Choose a service, then a time","",`
+  <form data-form="search" class="plain">
+    ${Object.keys(CATS).map(c=>`<section><p class="eyebrow">${ico(CAT_ICON[c],14)} ${esc(t(c))}</p><div class="tiles">${SERVICES.filter(s=>s.cat===c).map(s=>`<button type="button" class="tile" data-act="pickSvc" data-v="${s.code}" aria-pressed="${s.code===code}"><b>${esc(svcName(s.code))}</b><span>from ₹${s.rate}${s.mode==="HOURLY"?"/hr":" fixed"}</span></button>`).join("")}</div></section>`).join("")}
+    <div class="card"><div class="fields">
+      <label class="f" for="s-ward">Where<select id="s-ward">${WARDS.map(w=>`<option value="${w.id}" ${w.id===ward?"selected":""}>${esc(w.name)}</option>`).join("")}</select></label>
+      <label class="f" for="s-date">Date<input id="s-date" type="date" value="${esc(date)}" min="${istDate(new Date())}" required></label>
+      <label class="f" for="s-time">Start (IST)<input id="s-time" type="time" value="${esc(time)}" step="1800" required></label>
+      <label class="f" for="s-dur">How long<select id="s-dur">${[60,90,120,180,240].map(m=>`<option value="${m}" ${String(m)===String(dur)?"selected":""}>${m/60} hour${m>60?"s":""}</option>`).join("")}</select></label>
+    </div>
+    <p class="small muted">${ico("shield",14)} ${esc(CATS[SVC[code].cat].rule)}</p>
+    <div><button class="btn" type="submit">${ico("search",18)} Show available helpers</button></div></div>
+    <input type="hidden" id="s-svc" value="${esc(code)}">
+  </form>
+  ${results}`);
+};
+function helperRow(r,slot){
+  const {p,offer,d,st,parts,score,repeat}=r, svc=SVC[slot.code];
+  const colors=["var(--accent)","var(--gold)","var(--dot-info)","var(--dot-ok)","var(--dot-warn)"];
+  return `<div class="helper">${avatar(p.name,p.id,48,true)}
+    <div class="hm"><div class="row"><b>${esc(p.name)}</b>${p.sample?`<span class="chip gold">Sample</span>`:""}${repeat?`<span class="chip">Booked before</span>`:""}</div>
+      <span class="small muted">${esc(WARD[p.ward]?WARD[p.ward].name:p.ward)} · ${d.toFixed(1)} km · ${esc((p.languages||[]).map(l=>l==="ml"?"Malayalam":"English").join(", "))}</span>
+      <span class="small">${esc(p.bio||"")}</span>
+      <span class="small"><span class="stars">${st.rating==null?"":stars(st.rating)}</span> <span class="muted">${st.rating==null?"New helper":st.rating.toFixed(1)} · ${st.reviews} review${st.reviews===1?"":"s"} · match ${Math.round(score*100)}</span></span>
+      <div class="score" title="Match ${Math.round(score*100)}/100">${Object.values(parts).map((v,i)=>`<i style="width:${v*100}%;background:${colors[i]}"></i>`).join("")}</div></div>
+    <div class="hp"><span class="price">${inr(offer.rateP)}<span class="small muted">${svc.mode==="HOURLY"?"/hr":" fixed"}</span></span>
+      <button class="btn sm" data-act="startBook" data-pid="${esc(p.id)}" data-slot="${esc(JSON.stringify(slot))}">Book</button></div></div>`;
+}
+
+views.book = ()=>{
+  const {pid,code,date,time,dur,ward}=S.p, svc=SVC[code], p=S.providers.find(x=>x.id===pid);
+  if(!p) return page("Booking","","",`<div class="empty">That helper is no longer available. <button class="btn ghost sm" data-go="find">Search again</button></div>`,{back:"find"});
+  const start=new Date(`${date}T${time}:00+05:30`), end=new Date(start.getTime()+(+dur)*60000);
+  const el=eligible(p,svc,ward,start,end);
+  const budgetP=toP(($("#b-budget")||{}).value||(svc.cat==="SHOPPING"?"1000":"0"));
+  const feesP=toP(($("#b-fees")||{}).value||"0");
+  const q=quote(svc, el.offer?el.offer.rateP:0, +dur, dist(p.ward,ward), {budgetP:svc.cat==="SHOPPING"?budgetP:0, feesP:svc.cat==="GOVERNMENT"?feesP:0});
+  let cat="";
+  if(svc.cat==="ELDERLY") cat=`<fieldset><legend>Who is the visit for?</legend><div class="fields">
+      <label class="f" for="b-ben">Person's name<input id="b-ben" required></label>
+      <label class="f" for="b-rel">Your relationship<select id="b-rel"><option>Myself</option><option selected>Parent</option><option>Grandparent</option><option>Relative</option><option>Neighbour</option></select></label>
+      <label class="f" for="b-emer">Emergency contact<small>Name and phone</small><input id="b-emer" required placeholder="Ravi, 98470 00000"></label></div>
+      <label class="f" for="b-instr">Visit instructions<small>Routine, mobility needs, things to avoid. No medical tasks.</small><textarea id="b-instr" placeholder="Slow walk to the temple pond and back. Uses a walking stick."></textarea></label>
+      <label class="check"><input type="checkbox" id="b-consent"><span>The person receiving the visit knows about it and agrees.</span></label>
+      <label class="check"><input type="checkbox" id="b-notify" checked><span>Send me check-in and check-out updates.</span></label></fieldset>`;
+  if(svc.cat==="SHOPPING") cat=`<fieldset><legend>Shopping list</legend>
+      <label class="f" for="b-items">Items<small>One per line, with quantity</small><textarea id="b-items" required placeholder="Matta rice 5 kg&#10;Coconut oil 1 L&#10;Milk 2 packets"></textarea></label>
+      <div class="fields"><label class="f" for="b-budget">Spending cap (₹)<small>Collected as a refundable advance</small><input id="b-budget" inputmode="decimal" value="${(budgetP/100)||""}" data-live required></label>
+      <label class="f" for="b-shop">Preferred shop<input id="b-shop" placeholder="Any shop nearby"></label>
+      <label class="f" for="b-subs">If an item is unavailable<select id="b-subs"><option value="ASK">Ask me in chat first</option><option value="SKIP">Skip it</option></select></label></div>
+      ${code==="SHOP_PRESCRIPTION"?`<label class="check"><input type="checkbox" id="b-rx"><span>I hold a valid prescription and authorise the helper to collect it.</span></label>`:""}</fieldset>`;
+  if(svc.cat==="GOVERNMENT") cat=`<fieldset><legend>Government task</legend><div class="fields">
+      <label class="f" for="b-office">Office<select id="b-office">${GOV_OFFICES.map(o=>`<option>${esc(o)}</option>`).join("")}</select></label>
+      <label class="f" for="b-purpose">What is it for?<input id="b-purpose" required placeholder="Income certificate"></label>
+      <label class="f" for="b-fees">Expected official fee (₹)<small>Paid by you at the office</small><input id="b-fees" inputmode="decimal" data-live value="${(feesP/100)||""}"></label></div>
+      <label class="f" for="b-docs">Documents you'll hand over<small>One per line</small><textarea id="b-docs" placeholder="Ration card copy&#10;Passport photo"></textarea></label>
+      <label class="check"><input type="checkbox" id="b-auth"><span>I authorise the helper to carry and submit these documents for me. They will not sign for me, pay unofficial fees or guarantee approval.</span></label></fieldset>`;
+  return page(`${esc(svcName(code))}`,`with ${esc(p.name)} · ${esc(fmtDT(start.toISOString()))}`,"",`
+  ${!el.ok?`<div class="banner bad">${ico("alert",18)}<span><b>Not bookable:</b> ${esc(el.why.join(", "))}.</span><button class="btn ghost sm" data-go="find">Pick another slot</button></div>`:""}
+  <form data-form="createBooking" class="booklayout">
+    <div class="plain">
+      <div class="card"><div class="row">${avatar(p.name,p.id,48,true)}<div><b>${esc(p.name)}</b><div class="small muted">${esc(WARD[p.ward].name)} · ${esc(fmtDT(start.toISOString()))} – ${esc(fmtT(end.toISOString()))}</div></div></div></div>
+      ${cat}
+      <fieldset><legend>Address & notes</legend>
+        <label class="f" for="b-addr">House name / address<small>${esc(WARD[ward].name)}</small><input id="b-addr" autocomplete="street-address" required placeholder="Puthenveedu, near the school"></label>
+        <label class="f" for="b-notes">Anything else the helper should know<textarea id="b-notes"></textarea></label></fieldset>
+    </div>
+    <div class="card summary">
+      <span class="eyebrow">You'll pay after acceptance</span>
+      <div class="total">${inr(q.total+q.advance)}</div>
+      ${priceTable(q)}
+      <p class="small muted">Nothing is charged until ${esc(p.name.split(" ")[0])} accepts. Free cancellation up to 24 hours before.</p>
+      <button class="btn block" type="submit" ${el.ok?"":"disabled"} style="min-height:50px">${esc(t("book"))}</button>
+    </div>
+  </form>`,{back:"find"});
+};
+function priceTable(q,extra){
+  const rows=[[q.mode==="FIXED"?"Service (fixed fee)":`Service ${inr(q.rateP)}/hr × ${q.billMin/60} hr`,q.service],...(q.travel?[["Travel (over 2 km)",q.travel]]:[]),[`Platform fee ${FEES.platformPct}%`,q.platform],[`GST ${FEES.gstPct}% on platform fee`,q.gst]];
+  let h=`<table class="ledger">${rows.map(([l,v])=>`<tr><td>${esc(l)}</td><td>${inr(v)}</td></tr>`).join("")}`;
+  if(extra&&extra.adj) h+=`<tr><td>Approved extras & adjustments</td><td>${inr(extra.adj)}</td></tr>`;
+  h+=`<tr class="total"><td>Helper charges</td><td>${inr(q.total+((extra&&extra.adj)||0))}</td></tr>`;
+  if(q.advance) h+=`<tr class="sep"><td colspan="2">Kept separate from helper earnings</td></tr><tr><td>Purchase advance (unspent part refunded)</td><td>${inr(q.advance)}</td></tr>`;
+  if(q.officialFees) h+=`<tr class="sep"><td colspan="2">Paid by you at the office</td></tr><tr><td>Expected official fee (not collected)</td><td>${inr(q.officialFees)}</td></tr>`;
+  return h+`</table>`;
+}
+
+/* chats list */
+views.bookings = ()=>{
+  const f=S.p.f||"ALL", closed=b=>["COMPLETED","SETTLED","CANCELLED","REJECTED","EXPIRED"].includes(displayStatus(b));
+  const all=chatsFor(), list=all.filter(({b})=>f==="ALL"||(f==="ACTIVE"?!closed(b):closed(b)));
+  const seg=`<div class="seg" role="group" aria-label="Filter">${[["ALL","All"],["ACTIVE","Active"],["PAST","Past"]].map(([k,l])=>`<button data-go="bookings" data-f="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}</div>`;
+  return page(esc(t("chats")),`${all.length} booking${all.length===1?"":"s"}`,S.mode==="customer"?`<button class="btn sm" data-go="find">${ico("plus",16)} New</button>`:"",`
+    ${seg}
+    ${list.length?`<div class="group">${list.map(({b,ev})=>{const u=unread(b), c=counterpart(b);
+      return `<button class="ri ${u?"unread":""}" data-go="booking" data-id="${esc(b.id)}">${avatar(c.name,c.id,44,true)}
+        <span class="ri-main"><span class="ri-t">${esc(svcName(b.serviceCode))} · ${esc(c.name)}</span><span class="ri-s">${esc(ev.text)}</span></span>
+        <span class="ri-r"><span class="when">${esc(relTime(ev.at))}</span>${u?`<span class="badge">${u}</span>`:pill(displayStatus(b))}</span></button>`}).join("")}</div>`
+    :`<div class="empty">${ico("chat",28)}<span>${S.mode==="customer"?"No bookings yet. Each booking opens a chat with your helper.":"No bookings here yet. New requests appear as chats."}</span>${S.mode==="customer"?`<button class="btn sm" data-go="find">Find a helper</button>`:""}</div>`}`);
+};
+
+/* wallet */
+views.wallet = ()=>{
+  const tx=txFor(), prov=S.mode==="provider";
+  const month=tx.filter(x=>thisMonth(x.e.at));
+  const net=month.reduce((s,x)=>s+x.sign*x.amt,0), refunds=month.filter(x=>x.sign>0).reduce((s,x)=>s+x.amt,0);
+  const groups=[]; for(const x of tx){const d=istDate(new Date(x.e.at)); const g=groups[groups.length-1]; if(g&&g.d===d) g.items.push(x); else groups.push({d,items:[x]});}
+  const big=v=>inr(v).replace(/\.(\d\d)$/,"<small>.$1</small>");
+  const hero = prov
+    ? `<section class="hero"><span class="lbl">Paid out this month</span><div class="big">${big(net)}</div><span class="sub">${inr(pendingSettlement(S.me.mobile))} waiting for settlement after completed visits</span></section>`
+    : `<section class="hero"><span class="lbl">Spent this month</span><div class="big">${big(-net)}</div><span class="sub">${month.filter(x=>x.sign<0).length} payment${month.filter(x=>x.sign<0).length===1?"":"s"} · ${inr(refunds)} refunded</span></section>`;
+  return page(esc(prov?t("earnings"):t("wallet")),prov?"Payouts from completed visits":"Payments and refunds","",`${hero}
+    ${groups.length?groups.map(g=>`<section><span class="daylabel">${esc(dayLabel(g.d))}</span><div class="group">${g.items.map(txRow).join("")}</div></section>`).join("")
+      :`<div class="empty">${ico("wallet",28)}<span>${prov?"Payouts appear here once operations settles a completed visit.":"Nothing here yet. Your payments and refunds will be listed by day."}</span></div>`}
+    <p class="small muted">Shopping advances and refunds are kept apart from helper fees. Official government fees are paid at the office and never pass through the app.</p>`);
+};
+
+/* you / settings */
+views.me = ()=>{
+  const modes=[["customer","Customer","Book help and chat with helpers","user"],["provider","Helper","Take bookings and get paid","briefcase"]];
+  if(canAdmin()) modes.push(["admin","Operations","Approve helpers, handle incidents, settle payouts","shield"]);
+  return page(esc(t("me")),"","",`
+    <div class="card"><div class="row">${avatar(S.me.name,S.me.mobile,56,true)}<div><h2>${esc(S.me.name)}</h2><span class="muted mono">+91 ${esc(S.me.mobile)}</span></div></div></div>
+    <section><h2>Use the app as</h2><div class="group">${modes.map(([m,l,s,i])=>`<button class="ri" data-act="mode" data-v="${m}"><span class="ri-ico ${S.mode===m?"acc":""}">${ico(i)}</span><span class="ri-main"><span class="ri-t">${l}</span><span class="ri-s">${s}</span></span>${S.mode===m?`<span style="color:var(--accent)">${ico("check")}</span>`:""}</button>`).join("")}</div></section>
+    <section><h2>Language</h2><div><div class="seg" role="group" aria-label="Language"><button data-act="lang" data-v="en" aria-pressed="${S.lang==="en"}">English</button><button data-act="lang" data-v="ml" aria-pressed="${S.lang==="ml"}">മലയാളം</button></div></div></section>
+    ${modeBanner()}
+    <div><button class="btn quiet" data-act="signout">${ico("logout",18)} ${esc(t("signout"))}</button></div>`);
+};
+
+/* ---------- booking as a conversation ---------- */
+function roleName(h,b){ return {customer:b.customerName,helper:b.providerName,operations:"Operations",gateway:"Payments",system:"Kerala Service Connect"}[h.role]||h.role; }
+function sysLine(h,b){
+  const to=h.to, n=(h.note||"").toLowerCase();
+  const [icon,cls] = /sos/.test(n)?["alert","bad"] : ["CANCELLED","REJECTED","EXPIRED","DISPUTED"].includes(to)&&h.from!==to?["x","bad"] : /payment|paid|refund/.test(n)?["rupee","ok"] : ["COMPLETED","CONFIRMED","SETTLED","ACCEPTED"].includes(to)&&h.from!==to?["check","ok"] : /receipt|item|substitut/.test(n)?["cart","acc"] : ["clock",""];
+  return `<div class="sys"><span class="si ${cls}">${ico(icon,14)}</span><span><b>${esc(roleName(h,b))}</b> · ${esc(h.note||(STATUS[to]||[to])[0])}<time>${esc(fmtT(h.at))}</time></span></div>`;
+}
+function msgRow(m,cont){
+  const name=m.role==="operations"?"Operations":(m.name||"Someone");
+  return `<div class="msg ${cont?"cont":""}">${avatar(name,m.role==="operations"?"ops":m.from,36)}<div>${cont?"":`<div class="mh"><b>${esc(name)}</b>${m.role==="operations"?`<span class="tag">STAFF</span>`:m.role==="helper"?`<span class="tag">HELPER</span>`:""}<time>${esc(fmtT(m.at))}</time></div>`}<div class="mtext">${esc(m.text)}</div></div></div>`;
+}
+function nextStep(b,f){
+  const ds=displayStatus(b), m=money(b), who=b.providerName.split(" ")[0], cust=b.customerName.split(" ")[0];
+  const C=f.isCust&&S.mode==="customer", P=f.isProv&&S.mode==="provider";
+  switch(ds){
+    case "REQUESTED": return P?`New request from ${cust}. Accept to reserve this time.`:`Waiting for ${who} to accept. You won't be charged until then.`;
+    case "ACCEPTED": return C?`${who} accepted. Pay ${inr(m.due)} to confirm the booking.`:`Accepted. Waiting for ${cust} to pay.`;
+    case "CONFIRMED": return P?`Confirmed and paid. Check in when you arrive.`:`Confirmed. ${who} will check in at the start time.`;
+    case "IN_PROGRESS": return P?`Visit in progress.${b.shopping?" Update the shopping list in Details.":""}${b.gov?" Record progress in Details.":""} Check out when you're done.`:`Visit in progress. ${who} checked in at ${fmtT(b.session&&b.session.checkInAt||b.start)}.`;
+    case "COMPLETED": return m.due>0?`Visit complete. Balance due: ${inr(m.due)}.`:(f.isAdmin&&S.mode==="admin"?"Visit complete and paid. Ready to settle.":"Visit complete.");
+    case "SETTLED": return "Visit complete and the helper has been paid.";
+    case "DISPUTED": return "Dispute open. Operations is reviewing and the payout is on hold.";
+    case "EXPIRED": return "This request expired without a response.";
+    case "REJECTED": return `${who} couldn't take this booking. Find another helper.`;
+    case "CANCELLED": return "This booking was cancelled.";
+  }
+  return "";
+}
+function botBlock(b,f){
+  const ds=displayStatus(b), m=money(b), A=[];
+  const btn=(act,label,cls="")=>`<button class="btn sm ${cls}" data-act="${act}" data-id="${esc(b.id)}">${label}</button>`;
+  const P=f.isProv&&S.mode==="provider", C=f.isCust&&S.mode==="customer", ADM=f.isAdmin&&S.mode==="admin";
+  if(P){
+    if(ds==="REQUESTED"){A.push(btn("tr:accept",ico("check",16)+" "+t("accept")));A.push(btn("tr:reject",t("reject"),"ghost"));}
+    if(b.status==="CONFIRMED") A.push(btn("tr:checkin",t("checkin")));
+    if(b.status==="IN_PROGRESS"){A.push(btn("checkout",t("checkout")));A.push(btn("extraTime","Ask for 30 more min","ghost"));}
+  }
+  if(C){
+    if(b.status==="ACCEPTED"||(m.due>0&&["CONFIRMED","IN_PROGRESS","COMPLETED"].includes(b.status))) A.push(btn("pay",`${t("pay")} ${inr(m.due)}`));
+    if(["REQUESTED","ACCEPTED","CONFIRMED"].includes(b.status)&&ds!=="EXPIRED") A.push(btn("cancel",t("cancel"),"ghost"));
+    if(b.status==="COMPLETED") A.push(btn("dispute","Dispute","ghost"));
+    if(["REJECTED","EXPIRED"].includes(ds)) A.push(`<button class="btn sm" data-go="find" data-svc="${esc(b.serviceCode)}">Find another helper</button>`);
+  }
+  if(ADM&&b.status==="COMPLETED") A.push(btn("settle","Settle payout"));
+  if((f.isCust||f.isProv)&&S.mode!=="admin"&&!["REQUESTED","REJECTED","EXPIRED","CANCELLED"].includes(ds)) A.push(btn("incident",t("report"),"quiet"));
+  let extra="";
+  if(C){
+    (b.adjustments||[]).filter(a=>a.status==="PENDING").forEach(a=>{extra+=`<div class="block warn"><span><b>${esc(b.providerName)}</b> asks for ${a.minutes} more minutes (${inr(a.amountP)}).</span><div class="row"><button class="btn sm" data-act="adj" data-id="${b.id}" data-aid="${a.id}" data-v="APPROVED">Approve</button><button class="btn ghost sm" data-act="adj" data-id="${b.id}" data-aid="${a.id}" data-v="DECLINED">Decline</button></div></div>`;});
+    if(b.shopping) b.shopping.items.forEach((it,i)=>{ if(it.sub&&it.sub.status==="PROPOSED") extra+=`<div class="block warn"><span><b>${esc(it.name)}</b> isn't available. Substitute with <b>${esc(it.sub.text)}</b>?</span><div class="row"><button class="btn sm" data-act="subDecide" data-id="${b.id}" data-i="${i}" data-v="APPROVED">Approve</button><button class="btn ghost sm" data-act="subDecide" data-id="${b.id}" data-i="${i}" data-v="DECLINED">Decline</button></div></div>`; });
+    if(["COMPLETED","SETTLED"].includes(b.status)&&!b.review) extra+=`<div class="block"><b>${esc(t("review"))}</b><form data-form="review" data-id="${b.id}"><div class="fields"><label class="f" for="rv-stars">Rating<select id="rv-stars">${[5,4,3,2,1].map(n=>`<option value="${n}">${stars(n)} ${n}</option>`).join("")}</select></label></div><label class="f" for="rv-text">Comments<textarea id="rv-text" placeholder="What went well?"></textarea></label><div><button class="btn sm" type="submit">Submit review</button></div></form></div>`;
+  }
+  return `<div class="msg bot">${`<span class="av brandav" style="width:36px;height:36px">ക</span>`}<div><div class="mh"><b>Kerala Service Connect</b><span class="tag">APP</span></div>
+    <div class="block"><span>${esc(nextStep(b,f))}</span>${A.length?`<div class="row">${A.join("")}</div>`:""}</div>${extra}</div></div>`;
+}
+function feedHtml(b,f){
+  const items=[...(b.history||[]).map(h=>({k:"s",at:h.at,h})),...msgsFor(b.id).map(m=>({k:"m",at:m.at,m}))].sort((x,y)=>x.at.localeCompare(y.at));
+  const c=f.isProv?b.customerName:b.providerName;
+  let out=`<div class="intro"><span class="intro-ico">${ico(CAT_ICON[b.category]||"chat",28)}</span><h2>${esc(svcName(b.serviceCode))}</h2>
+    <p>This is the start of booking <b class="mono">${esc(b.bookingNo)}</b> between <b>${esc(b.customerName)}</b> and <b>${esc(b.providerName)}</b>. Messages here are seen by both of you and by the operations team. Never share OTPs or bank details.</p>
+    <div class="row"><span class="chip">${ico("clock",14)} ${esc(fmtDT(b.start))} – ${esc(fmtT(b.end))}</span><span class="chip">${esc(WARD[b.ward]?WARD[b.ward].name:"")}</span></div></div>`;
+  let lastDay="", last=null;
+  for(const it of items){
+    const day=istDate(new Date(it.at));
+    if(day!==lastDay){out+=`<div class="daydiv"><span>${esc(dayLabel(day))}</span></div>`;lastDay=day;last=null;}
+    if(it.k==="s"){out+=sysLine(it.h,b);last=null;continue;}
+    const m=it.m, cont=last&&last.from===m.from&&(new Date(m.at)-new Date(last.at))<300000;
+    out+=msgRow(m,cont); last=m;
+  }
+  return out+botBlock(b,f);
+}
+views.booking = ()=>{
+  const b=bookingById(S.p.id), back=S.mode==="admin"?"admin:bookings":"bookings";
+  if(!b) return page("Booking","","",`<div class="empty">Loading booking…</div>`,{back});
+  const ds=displayStatus(b), f={isCust:S.me.mobile===b.customerMobile, isProv:S.me.mobile===b.providerId, isAdmin:S.mode==="admin"&&canAdmin()};
+  if(!f.isCust&&!f.isProv&&!f.isAdmin) return page("Booking","","",`<div class="empty">You don't have access to this booking.</div>`,{back});
+  markSeen(b.id);
+  const c=f.isProv&&S.mode!=="admin"?{name:b.customerName,id:b.customerMobile}:{name:b.providerName,id:b.providerId};
+  const sos=(f.isCust||f.isProv)&&["CONFIRMED","IN_PROGRESS"].includes(b.status);
+  const closed=["REJECTED","EXPIRED","CANCELLED"].includes(ds);
+  const openInc=S.incidents.filter(i=>i.bookingId===b.id&&i.status==="OPEN");
+  return `<header class="phead chat-head"><button class="iconbtn menu" data-act="menu" aria-label="Open sidebar">${ico("menu")}</button><button class="iconbtn back" data-go="${back}" aria-label="Back">${ico("back")}</button>
+    ${avatar(c.name,c.id,36)}
+    <div class="phead-t"><h1>${esc(svcName(b.serviceCode))} · ${esc(c.name)}</h1><p><span class="mono">${esc(b.bookingNo)}</span> · ${esc(fmtDT(b.start))}</p></div>
+    <div class="phead-r">${pill(ds)}${sos?`<button class="btn danger sm" data-act="sos" data-id="${esc(b.id)}">${ico("alert",16)} SOS</button>`:""}<button class="iconbtn dtoggle" data-act="toggleDetails" aria-label="Show details" title="Details">${ico("info")}</button></div></header>
+  ${openInc.length?`<div class="banner bad" style="border-radius:0">${ico("alert",18)}<span><b>${openInc.length} open incident${openInc.length>1?"s":""}.</b> Operations is reviewing. In an emergency call 112.</span></div>`:""}
+  <div class="chatwrap ${S.details?"show-details":""}">
+    <section class="convo">
+      <div class="feed" id="feed" role="log" aria-label="Booking conversation">${feedHtml(b,f)}</div>
+      ${closed?`<div class="closed-note">This booking is closed, so the chat is read-only.</div>`
+      :`<form data-form="sendMsg" data-id="${esc(b.id)}" class="composer"><textarea id="msg-input" aria-label="Message" rows="1" maxlength="2000" placeholder="Message ${esc(S.mode==="admin"?"both parties":c.name.split(" ")[0])}"></textarea>
+        <div class="composer-bar"><span class="small muted hint">Enter to send · Shift+Enter for a new line</span><button class="send" type="submit" aria-label="Send">${ico("send",18)}</button></div></form>`}
+    </section>
+    <aside class="details" aria-label="Booking details">${detailsHtml(b,f)}</aside>
+  </div>`;
+};
+function detailsHtml(b,f){
+  const m=money(b);
+  return `<div class="details-h"><h2>Details</h2><button class="iconbtn" data-act="toggleDetails" aria-label="Close details">${ico("x")}</button></div>
+  <section class="dsec"><h3>Visit</h3><dl class="kv">
+    <dt>Service</dt><dd>${esc(svcName(b.serviceCode))}</dd>
+    <dt>When</dt><dd>${esc(fmtDT(b.start))} – ${esc(fmtT(b.end))}</dd>
+    <dt>Where</dt><dd>${esc(b.address)}<br><span class="muted">${esc(WARD[b.ward]?WARD[b.ward].name:"")}</span></dd>
+    <dt>Customer</dt><dd>${esc(b.customerName)}${f.isProv||f.isAdmin?` <span class="mono small muted">+91 ${esc(b.customerMobile)}</span>`:""}</dd>
+    <dt>Helper</dt><dd>${esc(b.providerName)}</dd>
+    ${b.session&&b.session.checkInAt?`<dt>Checked in</dt><dd>${esc(fmtT(b.session.checkInAt))}${b.session.checkOutAt?` · out ${esc(fmtT(b.session.checkOutAt))}`:""}</dd>`:""}
+    ${b.notes?`<dt>Notes</dt><dd>${esc(b.notes)}</dd>`:""}</dl></section>
+  ${b.elderly?elderlyPanel(b):""}${b.shopping?shoppingPanel(b,f.isCust,f.isProv&&S.mode==="provider"):""}${b.gov?govPanel(b,f.isCust,f.isProv&&S.mode==="provider"):""}
+  <section class="dsec"><h3>Charges</h3>${priceTable(b.price,{adj:m.adj})}
+    <table class="ledger"><tr><td>Paid</td><td>${inr(m.paid)}</td></tr>${m.refunded?`<tr><td>Refunded</td><td>${inr(m.refunded)}</td></tr>`:""}<tr class="total"><td>Balance due</td><td>${inr(m.due)}</td></tr></table></section>
+  ${(b.ledger||[]).length?`<section class="dsec"><h3>Ledger</h3><table class="ledger">${b.ledger.map(e=>`<tr><td>${esc(e.type.replace(/_/g," ").toLowerCase())}<br><span class="mono small muted">${esc(e.ref||"")}</span></td><td>${inr(e.amountP)}</td></tr>`).join("")}</table></section>`:""}
+  ${b.settlement?`<section class="dsec"><h3>Helper settlement</h3><table class="ledger"><tr><td>Service, travel & extras</td><td>${inr(b.settlement.earnedP)}</td></tr><tr><td>Commission ${FEES.commissionPct}%</td><td>−${inr(b.settlement.commissionP)}</td></tr><tr><td>Purchase reimbursement</td><td>${inr(b.settlement.reimburseP)}</td></tr><tr class="total"><td>Payout</td><td>${inr(b.settlement.payoutP)}</td></tr></table></section>`:""}
+  ${b.review?`<section class="dsec"><h3>Review</h3><p><span class="stars">${stars(b.review.stars)}</span></p>${b.review.text?`<p>${esc(b.review.text)}</p>`:""}</section>`:""}
+  ${testPanel(b,f.isCust,f.isAdmin)}`;
+}
+function elderlyPanel(b){const e=b.elderly;return `<section class="dsec"><h3>Visit for ${esc(e.beneficiary)}</h3>
+  <dl class="kv"><dt>Relation</dt><dd>${esc(e.relation)} of ${esc(b.customerName)}</dd><dt>Emergency</dt><dd>${esc(e.emergency)}</dd>${e.instructions?`<dt>Instructions</dt><dd>${esc(e.instructions)}</dd>`:""}</dl>
+  <p class="small">${e.consent?"✓ Consent recorded":"Consent not recorded"} · ${e.notify?"Family updates on":"Family updates off"}</p>
+  <p class="small muted">Non-clinical visit. No medication or nursing.</p></section>`}
+function shoppingPanel(b,isCust,isProv){
+  const s=b.shopping, live=b.status==="IN_PROGRESS", spent=shoppingSpent(b);
+  return `<section class="dsec"><div class="spread"><h3>Shopping list</h3><span class="small muted num">${inr(spent)} of ${inr(s.budgetP)}</span></div>
+  <div class="score" style="max-width:none"><i style="width:${Math.min(100,spent/s.budgetP*100)}%;background:var(--accent)"></i></div>
+  <ul class="items">${s.items.map((it,i)=>`<li><div class="spread"><span>${esc(it.name)}</span>${pill(it.status==="BOUGHT"?"OK_B":it.status==="PENDING"?"TO_BUY":it.status)}</div>
+    ${it.sub?`<span class="small">Substitute: <b>${esc(it.sub.text)}</b> · ${esc(it.sub.status.toLowerCase())}</span>`:""}
+    ${isProv&&live&&it.status==="PENDING"?`<div class="row"><button class="btn sm" data-act="item" data-id="${b.id}" data-i="${i}" data-v="BOUGHT">Bought</button><button class="btn ghost sm" data-act="item" data-id="${b.id}" data-i="${i}" data-v="UNAVAILABLE">Not available</button></div>
+      ${s.subs==="ASK"&&!it.sub?`<div class="row"><input id="sub-${i}" placeholder="Suggest a substitute" style="flex:1;min-width:120px;min-height:38px"><button class="btn quiet sm" data-act="subPropose" data-id="${b.id}" data-i="${i}">Ask</button></div>`:""}`:""}</li>`).join("")}</ul>
+  ${(s.receipts||[]).length?`<table class="ledger">${s.receipts.map(r=>`<tr><td>${esc(r.shop)}<br><span class="small muted">${esc(fmtT(r.at))}${r.note?" · "+esc(r.note):""}</span></td><td>${inr(r.totalP)}</td></tr>`).join("")}</table>`:""}
+  ${isProv&&live?`<form data-form="receipt" data-id="${b.id}"><div class="fields"><label class="f" for="r-shop">Shop<input id="r-shop" required></label><label class="f" for="r-total">Receipt total (₹)<input id="r-total" inputmode="decimal" required></label></div><label class="f" for="r-note">Itemised note<input id="r-note" placeholder="Rice 5kg ₹310, oil ₹195…"></label><div><button class="btn quiet sm" type="submit">Add receipt</button></div></form>`:""}
+  ${s.reconciled?`<p class="small">Reconciled: ${inr(spent)} spent, ${inr(s.budgetP-spent)} refunded.</p>`:""}</section>`;
+}
+function govPanel(b,isCust,isProv){
+  const g=b.gov, live=b.status==="IN_PROGRESS";
+  const steps=["Documents collected","Visited office","Application submitted","Follow-up done","Outcome received"];
+  return `<section class="dsec"><h3>${esc(g.purpose)} · ${esc(g.office)}</h3>
+  ${g.docs.length?`<p class="small muted">Documents: ${esc(g.docs.join(", "))}</p>`:""}
+  <p class="small">${g.authorised?"✓ Authorisation recorded":"No authorisation"} · Official fee ${inr(g.feesP)} paid at the office</p>
+  ${g.refNo?`<p>Reference <b class="mono">${esc(g.refNo)}</b></p>`:""}
+  ${(g.updates||[]).length?`<ol class="timeline">${g.updates.map(u=>`<li><span><b>${esc(u.step)}</b>${u.note?` · ${esc(u.note)}`:""}<br><span class="small muted">${esc(fmtDT(u.at))}</span></span></li>`).join("")}</ol>`:`<p class="small muted">No progress recorded yet.</p>`}
+  ${isProv&&live?`<form data-form="govUpdate" data-id="${b.id}"><div class="fields"><label class="f" for="g-step">Step<select id="g-step">${steps.map(s=>`<option>${s}</option>`).join("")}</select></label><label class="f" for="g-ref">Reference no.<input id="g-ref" value="${esc(g.refNo||"")}"></label></div><label class="f" for="g-note">Note<input id="g-note" placeholder="Token 42, officer asked for ration card original"></label><div><button class="btn quiet sm" type="submit">Record progress</button></div></form>`:""}
+  <p class="small muted">Helpers never sign, impersonate or pay unofficial fees.</p></section>`;
+}
+function testPanel(b,isCust,isAdmin){
+  if(!(isCust||isAdmin)||!S.lastEvent||S.lastEvent.bookingId!==b.id) return "";
+  return `<section class="dsec"><h3>Gateway test tools</h3><p class="small">Last webhook <span class="mono">${esc(S.lastEvent.id)}</span> for ${inr(S.lastEvent.amountP)}.</p>
+  <div class="row"><button class="btn quiet sm" data-act="replay" data-id="${b.id}">Replay webhook</button><button class="btn quiet sm" data-act="forge" data-id="${b.id}">Send forged webhook</button></div>
+  <p class="small muted">Replays must not charge twice; forged signatures must be rejected.</p></section>`;
+}
+
+/* ---------- helper dashboard & profile ---------- */
+views.phome = ()=>{
+  const p=myProvider();
+  if(!p) return page(esc(t("dashboard")),"","",`<section class="hero"><span class="lbl">Become a helper</span><h2>Earn by helping families in your ward.</h2>
+    <span class="sub">Set your own rates and hours. Every helper is checked with ID, references and, for elderly care, police clearance before taking bookings.</span>
+    <div><button class="btn" data-go="pprofile">Start your application</button></div></section>`);
+  const mine=S.bookings.filter(b=>b.providerId===p.id);
+  const req=mine.filter(b=>displayStatus(b)==="REQUESTED").sort((a,b)=>a.start.localeCompare(b.start));
+  const up=mine.filter(b=>ACTIVE.includes(b.status)).sort((a,b)=>a.start.localeCompare(b.start));
+  const paidMonth=txFor().filter(x=>thisMonth(x.e.at)).reduce((s,x)=>s+x.amt,0);
+  const st=providerStats(p.id);
+  const row=(b,actions)=>`<div class="ri" data-go="booking" data-id="${esc(b.id)}" role="link" tabindex="0">${avatar(b.customerName,b.customerMobile,44,true)}<span class="ri-main"><span class="ri-t">${esc(svcName(b.serviceCode))} · ${esc(b.customerName)}</span><span class="ri-s">${esc(fmtDT(b.start))} · ${esc(WARD[b.ward]?WARD[b.ward].name:"")} · ${inr(b.price.service+b.price.travel)}</span></span><span class="ri-r">${actions||pill(displayStatus(b))}</span></div>`;
+  return page(esc(t("dashboard")),esc(p.name),pill(p.status),`
+    ${p.status==="PENDING"?`<div class="banner warn">${ico("clock",18)}<span><b>Under review.</b> We're checking your ID and calling your references. You can take bookings once approved.</span></div>`:""}
+    ${p.status==="REJECTED"?`<div class="banner bad">${ico("alert",18)}<span><b>Not approved.</b> ${esc(p.rejectReason||"")}</span></div>`:""}
+    ${p.status==="SUSPENDED"?`<div class="banner bad">${ico("alert",18)}<span><b>Suspended.</b> Contact the operations team.</span></div>`:""}
+    <section class="hero"><span class="lbl">Paid out this month</span><div class="big">${inr(paidMonth).replace(/\.(\d\d)$/,"<small>.$1</small>")}</div>
+      <span class="sub">${inr(pendingSettlement(p.id))} waiting for settlement</span>
+      <div class="strip"><div><b>${req.length} new request${req.length===1?"":"s"}</b><span class="sub">${up.length} upcoming or active</span></div><button class="btn sm" data-go="bookings">Open chats</button></div></section>
+    <div class="stats"><div class="stat"><span>Rating</span><b>${st.rating==null?"—":st.rating.toFixed(1)}</b></div><div class="stat"><span>Visits done</span><b>${st.done}</b></div><div class="stat"><span>Acceptance</span><b>${st.reliability==null?"—":Math.round(st.reliability*100)+"%"}</b></div><div class="stat"><span>Reviews</span><b>${st.reviews}</b></div></div>
+    <section><h2>New requests</h2>${req.length?`<div class="group">${req.map(b=>row(b,`<span class="row"><button class="btn sm" data-act="tr:accept" data-id="${esc(b.id)}">${esc(t("accept"))}</button><button class="btn ghost sm" data-act="tr:reject" data-id="${esc(b.id)}">${esc(t("reject"))}</button></span>`)).join("")}</div>`:`<div class="empty">${ico("chat",28)}<span>No new requests. They appear here and in your chats the moment a customer books you.</span></div>`}</section>
+    <section><h2>Upcoming & active</h2>${up.length?`<div class="group">${up.map(b=>row(b)).join("")}</div>`:`<div class="empty">Nothing scheduled.</div>`}</section>`);
+};
+views.pprofile = ()=>{
+  const p=myProvider()||{name:S.me.name,ward:"W01",radiusKm:5,languages:["ml"],services:[],days:[1,2,3,4,5,6],from:"08:00",to:"18:00",credentials:{}};
+  const off=Object.fromEntries((p.services||[]).map(s=>[s.code,s.rateP])), c=p.credentials||{};
+  return page(myProvider()?esc(t("profile")):"Helper application",myProvider()?"What customers see when they book you":"Tell us about you. Our team reviews every application.","",`
+  <form data-form="saveProvider">
+    <fieldset><legend>About you</legend><div class="fields">
+      <label class="f" for="p-name">Full name<input id="p-name" value="${esc(p.name)}" required></label>
+      <label class="f" for="p-ward">Home ward<select id="p-ward">${WARDS.map(w=>`<option value="${w.id}" ${w.id===p.ward?"selected":""}>${esc(w.name)}</option>`).join("")}</select></label>
+      <label class="f" for="p-radius">Travel radius (km)<input id="p-radius" type="number" min="1" max="15" value="${esc(p.radiusKm)}"></label></div>
+      <label class="f" for="p-bio">Short introduction<textarea id="p-bio" placeholder="Retired teacher, patient with elders, knows every office in town.">${esc(p.bio||"")}</textarea></label>
+      <div class="row"><label class="check"><input type="checkbox" id="p-lang-ml" ${p.languages.includes("ml")?"checked":""}><span>Malayalam</span></label><label class="check"><input type="checkbox" id="p-lang-en" ${p.languages.includes("en")?"checked":""}><span>English</span></label></div></fieldset>
+    <fieldset><legend>Services and your rates</legend>
+      ${Object.keys(CATS).map(cat=>`<p class="eyebrow">${ico(CAT_ICON[cat],14)} ${esc(t(cat))}</p>${SERVICES.filter(s=>s.cat===cat).map(s=>`<div class="spread">
+        <label class="check" style="flex:1;min-width:170px"><input type="checkbox" id="p-svc-${s.code}" ${off[s.code]!=null?"checked":""}><span>${esc(svcName(s.code))}</span></label>
+        <label class="f" for="p-rate-${s.code}" style="width:140px"><small>${s.mode==="HOURLY"?"₹ per hour":"₹ fixed"}</small><input id="p-rate-${s.code}" inputmode="decimal" value="${off[s.code]!=null?off[s.code]/100:s.rate}"></label></div>`).join("")}`).join("")}</fieldset>
+    <fieldset><legend>When you're available (IST)</legend>
+      <div class="row">${DAYS.map((d,i)=>`<label class="check"><input type="checkbox" id="p-day-${i}" ${p.days.includes(i)?"checked":""}><span>${d}</span></label>`).join("")}</div>
+      <div class="fields"><label class="f" for="p-from">From<input id="p-from" type="time" value="${esc(p.from)}"></label><label class="f" for="p-to">To<input id="p-to" type="time" value="${esc(p.to)}"></label></div></fieldset>
+    <fieldset><legend>Verification</legend>
+      <div class="fields"><label class="f" for="p-id">Photo ID you'll show<small>Checked in person, number not stored</small><select id="p-id">${["Voter ID","Driving licence","Passport","PAN card","Aadhaar (masked copy)"].map(o=>`<option ${c.idType===o?"selected":""}>${o}</option>`).join("")}</select></label>
+      <label class="f" for="p-police">Police clearance certificate<small>Required for elderly companionship</small><select id="p-police">${["Will submit","Submitted","Not applying"].map(o=>`<option ${c.police===o?"selected":""}>${o}</option>`).join("")}</select></label></div>
+      <div class="fields"><label class="f" for="p-ref1">Reference 1<small>Name and phone</small><input id="p-ref1" value="${esc(c.ref1||"")}" required></label><label class="f" for="p-ref2">Reference 2<input id="p-ref2" value="${esc(c.ref2||"")}" required></label></div>
+      <label class="check"><input type="checkbox" id="p-agree" ${myProvider()?"checked":""}><span>I agree to the helper code: no medication or nursing, no unofficial payments, no signing for customers, itemised receipts for every purchase.</span></label></fieldset>
+    <div><button class="btn" type="submit">${myProvider()?"Save changes":"Submit application"}</button></div>
+  </form>`);
+};
+
+/* ---------- operations ---------- */
+views.admin = ()=>{
+  if(!canAdmin()) return page("Operations","","",`<div class="empty">Operations is available to the owner of this app.</div>`);
+  const tab=S.p.tab||"approvals";
+  if(tab==="approvals"){
+    const pend=S.providers.filter(p=>p.status==="PENDING"), rest=S.providers.filter(p=>p.status!=="PENDING");
+    return page("Helper approvals",`${pend.length} waiting`,"",`<section>${pend.length?pend.map(p=>`<div class="card">
+      <div class="row">${avatar(p.name,p.id,44,true)}<div style="flex:1;min-width:0"><b>${esc(p.name)}</b><div class="small muted mono">+91 ${esc(p.id)}</div></div>${pill(p.status)}</div>
+      <p class="small muted">${esc(WARD[p.ward]?WARD[p.ward].name:"")} · radius ${p.radiusKm} km · ${esc((p.services||[]).map(s=>svcName(s.code)+" "+inr(s.rateP)).join(", "))}</p>
+      <p class="small">ID: ${esc(p.credentials.idType)} · Police clearance: ${esc(p.credentials.police)} · References: ${esc(p.credentials.ref1)}; ${esc(p.credentials.ref2)}</p>
+      <form data-form="approve" data-id="${esc(p.id)}">
+        <div class="row"><label class="check"><input type="checkbox" id="ap-id-${esc(p.id)}"><span>ID seen in person</span></label>
+        <label class="check"><input type="checkbox" id="ap-refs-${esc(p.id)}"><span>Both references called</span></label>
+        <label class="check"><input type="checkbox" id="ap-pcc-${esc(p.id)}"><span>Police clearance seen</span></label>
+        <label class="check"><input type="checkbox" id="ap-train-${esc(p.id)}"><span>Training done</span></label></div>
+        <label class="f" for="ap-reason-${esc(p.id)}">Reason if declining<input id="ap-reason-${esc(p.id)}"></label>
+        <div class="row"><button class="btn sm" type="submit" name="v" value="APPROVED">Approve for 12 months</button><button class="btn ghost sm" type="submit" name="v" value="REJECTED">Decline</button></div></form></div>`).join(""):`<div class="empty">${ico("users",28)}<span>No applications waiting.</span></div>`}</section>
+      <section><h2>All helpers</h2><div class="group">${rest.map(p=>`<div class="ri">${avatar(p.name,p.id,40,true)}<span class="ri-main"><span class="ri-t">${esc(p.name)} ${p.sample?'<span class="chip gold">Sample</span>':""}</span><span class="ri-s">${(p.services||[]).length} services · verified until ${p.verification?esc(new Date(p.verification.expiresAt).toLocaleDateString("en-IN")):"—"}</span></span>
+        <span class="ri-r">${pill(p.status)}${p.status==="APPROVED"?`<button class="linkbtn small" data-act="suspend" data-id="${esc(p.id)}">Suspend</button>`:p.status==="SUSPENDED"?`<button class="linkbtn small" data-act="reinstate" data-id="${esc(p.id)}">Reinstate</button>`:""}</span></div>`).join("")}</div></section>`);
+  }
+  if(tab==="bookings"){
+    const f=S.p.f||"ALL", list=S.bookings.filter(b=>f==="ALL"||displayStatus(b)===f).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+    const stale=S.bookings.filter(b=>b.status==="REQUESTED"&&displayStatus(b)==="EXPIRED").length;
+    return page("Bookings",`${S.bookings.length} in total`,stale?`<button class="btn quiet sm" data-act="expire">Expire ${stale} stale</button>`:"",`
+      <div class="row">${["ALL","REQUESTED","ACCEPTED","CONFIRMED","IN_PROGRESS","COMPLETED","SETTLED","DISPUTED","CANCELLED","EXPIRED"].map(s=>`<button class="btn ${f===s?"":"quiet"} sm" data-go="admin" data-tab="bookings" data-f="${s}">${s==="ALL"?"All":esc((STATUS[s]||[s])[0])}</button>`).join("")}</div>
+      ${list.length?`<div class="tablewrap"><table class="data"><tr><th>Booking</th><th>Service</th><th>When</th><th>Customer → Helper</th><th>Status</th><th>Charges</th></tr>
+      ${list.map(b=>`<tr><td><button class="linkbtn mono" data-go="booking" data-id="${esc(b.id)}">${esc(b.bookingNo)}</button></td><td>${esc(svcName(b.serviceCode))}</td><td class="small">${esc(fmtDT(b.start))}</td><td class="small">${esc(b.customerName)} → ${esc(b.providerName)}</td><td>${pill(displayStatus(b))}</td><td class="num">${inr(money(b).charges)}</td></tr>`).join("")}</table></div>`:`<div class="empty">No bookings in this state.</div>`}`);
+  }
+  if(tab==="incidents"){
+    const list=S.incidents.slice().sort((a,b)=>(a.status===b.status?b.createdAt.localeCompare(a.createdAt):a.status==="OPEN"?-1:1));
+    return page("Incidents & disputes",`${list.filter(i=>i.status==="OPEN").length} open`,"",list.length?list.map(i=>{const b=bookingById(i.bookingId);const m=b?money(b):{paid:0,refunded:0};return `<div class="card">
+      <div class="spread"><span class="row"><span class="chip">${esc(i.type)}</span><span class="mono small">${esc(i.bookingNo)}</span></span>${pill(i.status)}</div>
+      <p>${esc(i.text)}</p><p class="small muted">Reported by ${esc(i.role)} · ${esc(fmtDT(i.createdAt))}</p>
+      ${i.status==="OPEN"?`<form data-form="resolve" data-id="${esc(i.id)}"><div class="fields"><label class="f" for="rs-note-${esc(i.id)}">Resolution<input id="rs-note-${esc(i.id)}" required></label>
+        ${i.type==="DISPUTE"&&b?`<label class="f" for="rs-refund-${esc(i.id)}">Refund to customer (₹)<small>Up to ${inr(m.paid-m.refunded)}</small><input id="rs-refund-${esc(i.id)}" inputmode="decimal" value="0"></label>`:""}</div>
+        <div class="row"><button class="btn sm" type="submit">Resolve</button>${b?`<button type="button" class="btn ghost sm" data-go="booking" data-id="${esc(b.id)}">Open chat</button>`:""}</div></form>`:`<p class="small">Resolution: ${esc(i.resolution||"")}</p>`}</div>`}).join(""):`<div class="empty">${ico("shield",28)}<span>No incidents reported.</span></div>`);
+  }
+  let gmv=0,plat=0,gst=0,comm=0,adv=0,ref=0,payout=0,awaiting=0;
+  for(const b of S.bookings){const m=money(b);if(!m.paid)continue;gmv+=b.price.service+b.price.travel+m.adjService;plat+=b.price.platform;gst+=b.price.gst;adv+=b.price.advance;ref+=m.refunded;
+    if(b.settlement){comm+=b.settlement.commissionP;payout+=b.settlement.payoutP}else if(b.status==="COMPLETED")awaiting++;}
+  const ready=S.bookings.filter(b=>b.status==="COMPLETED"&&money(b).due===0&&!S.incidents.some(i=>i.bookingId===b.id&&i.status==="OPEN"));
+  return page("Revenue & settlement","Purchases and official fees are pass-through, never revenue","",`
+    <section class="hero"><span class="lbl">Platform revenue</span><div class="big">${inr(plat+comm).replace(/\.(\d\d)$/,"<small>.$1</small>")}</div><span class="sub">Fees ${inr(plat)} + commission ${inr(comm)} · ${inr(gst)} GST collected</span></section>
+    <div class="stats"><div class="stat"><span>Helper service value</span><b>${inr(gmv)}</b></div><div class="stat"><span>Paid to helpers</span><b>${inr(payout)}</b></div><div class="stat"><span>Purchase advances</span><b>${inr(adv)}</b></div><div class="stat"><span>Refunds</span><b>${inr(ref)}</b></div></div>
+    <section><h2>Ready to settle</h2>${ready.length?`<div class="group">${ready.map(b=>`<div class="ri">${avatar(b.providerName,b.providerId,40,true)}<span class="ri-main"><span class="ri-t">${esc(b.providerName)} · ${esc(svcName(b.serviceCode))}</span><span class="ri-s mono">${esc(b.bookingNo)}</span></span><span class="ri-r"><button class="btn sm" data-act="settle" data-id="${esc(b.id)}">Settle</button></span></div>`).join("")}</div>`:`<div class="empty">${awaiting?"Completed bookings have a balance due or an open incident.":"Nothing to settle."}</div>`}</section>`);
+};
+
+/* ---------- sheet (in-page dialogs) ---------- */
+function renderSheet(){
+  const el=$("#sheet"), s=S.sheet;
+  if(!s){el.hidden=true;el.innerHTML="";return}
+  el.hidden=false;
+  if(el.dataset.k===s.k) return; el.dataset.k=s.k;
+  el.innerHTML=`<div class="panel" role="dialog" aria-modal="true" aria-label="${esc(s.title)}">${s.html}</div>`;
+  const f=el.querySelector("input,textarea,button");if(f)f.focus();
+}
+function openSheet(title,html){S.sheet={k:rid(4),title,html};renderSheet()}
+function closeSheet(){S.sheet=null;$("#sheet").dataset.k="";renderSheet()}
+
+/* ---------- actions ---------- */
+async function guard(fn){
+  if(S.busy) return; S.busy=true;
+  try{ await fn() }catch(e){ console.error(e); toast(e.message||("Could not save: "+(e.code||"error")),"bad") } finally{ S.busy=false }
+}
+const hist=(b,to,note)=>[...(b.history||[]),{at:nowISO(),from:b.status,to,by:S.me.mobile,role:S.mode==="admin"?"operations":S.mode==="provider"?"helper":"customer",note:note||""}];
+const TR = {
+  accept:{from:["REQUESTED"],to:"ACCEPTED",who:"provider",note:"Helper accepted"},
+  reject:{from:["REQUESTED"],to:"REJECTED",who:"provider",note:"Helper declined"},
+  checkin:{from:["CONFIRMED"],to:"IN_PROGRESS",who:"provider",note:"Helper checked in"}
+};
+async function transition(id,action){
+  const tr=TR[action];
+  await Store.lock("b_"+id, async()=>{
+    const b=await Store.get("bookings",id);
+    if(!b) throw new Error("Booking not found.");
+    if(!tr.from.includes(b.status)) throw new Error(`This booking is ${STATUS[b.status][0].toLowerCase()} now, so it can't be changed that way.`);
+    if(tr.who==="provider"&&b.providerId!==S.me.mobile) throw new Error("Only the assigned helper can do this.");
+    const patch={status:tr.to, version:(b.version||0)+1, history:hist(b,tr.to,tr.note)};
+    if(action==="accept"){
+      if(new Date(b.start)<new Date()) throw new Error("This request has expired.");
+      const p=await Store.get("providers",b.providerId);
+      if(!p||p.status!=="APPROVED") throw new Error("Your profile must be approved before you can accept bookings.");
+      const theirs=await Store.where("bookings","providerId",b.providerId);
+      const clash=theirs.find(x=>x.id!==b.id&&ACTIVE.includes(x.status)&&new Date(x.start)<new Date(b.end)&&new Date(b.start)<new Date(x.end));
+      if(clash) throw new Error(`You already have ${clash.bookingNo} at that time.`);
+      patch.payment={...b.payment, orders:[...(b.payment.orders||[]), {orderId:"order_"+rid(10), amountP:money(b).charges, at:nowISO()}]};
+    }
+    if(action==="checkin"){ patch.session={checkInAt:nowISO()}; if(b.elderly&&b.elderly.notify) patch.history.push({at:nowISO(),to:"IN_PROGRESS",by:"system",role:"system",note:"Family notified of check-in"}); }
+    await Store.update("bookings",id,patch);
+  });
+  toast(TR[action].note+".");
+}
+async function createBooking(){
+  const {pid,code,date,time,dur,ward}=S.p, svc=SVC[code];
+  const start=new Date(`${date}T${time}:00+05:30`), end=new Date(start.getTime()+(+dur)*60000);
+  const v=id=>{const el=document.getElementById(id);return el?(el.type==="checkbox"?el.checked:el.value.trim()):""};
+  const extra={};
+  if(svc.cat==="ELDERLY"){
+    if(!v("b-consent")) throw new Error("Confirm that the person receiving the visit agrees to it.");
+    extra.elderly={beneficiary:v("b-ben"),relation:v("b-rel"),emergency:v("b-emer"),instructions:v("b-instr"),consent:true,notify:v("b-notify")};
+  }
+  if(svc.cat==="SHOPPING"){
+    const items=v("b-items").split("\n").map(s=>s.trim()).filter(Boolean);
+    const budgetP=toP(v("b-budget"));
+    if(!items.length) throw new Error("Add at least one item to the shopping list.");
+    if(budgetP<10000) throw new Error("Set a spending cap of at least ₹100.");
+    if(code==="SHOP_PRESCRIPTION"&&!v("b-rx")) throw new Error("Confirm you hold a valid prescription.");
+    extra.shopping={items:items.map(name=>({name,status:"PENDING",sub:null})),budgetP,shop:v("b-shop"),subs:v("b-subs"),receipts:[],reconciled:false};
+  }
+  if(svc.cat==="GOVERNMENT"){
+    if(!v("b-auth")) throw new Error("Tick the authorisation so the helper can carry your documents.");
+    extra.gov={office:v("b-office"),purpose:v("b-purpose"),feesP:toP(v("b-fees")),docs:v("b-docs").split("\n").map(s=>s.trim()).filter(Boolean),authorised:true,updates:[],refNo:""};
+  }
+  await Store.lock("p_"+pid, async()=>{
+    const p=await Store.get("providers",pid);
+    if(!p) throw new Error("That helper is no longer available.");
+    const theirs=await Store.where("bookings","providerId",pid);
+    const saved=S.bookings; S.bookings=theirs;
+    const el=eligible(p,svc,ward,start,end); S.bookings=saved;
+    if(!el.ok) throw new Error("This slot is no longer available: "+el.why.join(", ")+".");
+    const q=quote(svc,el.offer.rateP,+dur,dist(p.ward,ward),{budgetP:extra.shopping?extra.shopping.budgetP:0,feesP:extra.gov?extra.gov.feesP:0});
+    const id=rid(12), ist=istParts(new Date());
+    const b={bookingNo:`KSC-${ist.date.slice(2).replace(/-/g,"")}-${rid(4).toUpperCase()}`, customerMobile:S.me.mobile, customerName:S.me.name, providerId:pid, providerName:p.name,
+      serviceCode:code, category:svc.cat, ward, address:v("b-addr"), notes:v("b-notes"), start:start.toISOString(), end:end.toISOString(), durationMin:+dur,
+      status:"REQUESTED", version:0, createdAt:nowISO(), price:q, payment:{paidP:0,events:[],orders:[]}, refundedP:0, ledger:[], adjustments:[], review:null, settlement:null,
+      elderly:extra.elderly||null, shopping:extra.shopping||null, gov:extra.gov||null,
+      history:[{at:nowISO(),from:null,to:"REQUESTED",by:S.me.mobile,role:"customer",note:"Booking requested"}]};
+    if(!b.address) throw new Error("Add the address where the helper should come.");
+    await Store.set("bookings",id,b);
+    toast("Request sent to "+p.name+". You'll pay once they accept.");
+    go("booking",{id});
+  });
+}
+async function payFlow(id){
+  const b=bookingById(id), m=money(b);
+  const order=(b.payment.orders||[]).slice(-1)[0];
+  const orderId = order&&order.amountP===m.due ? order.orderId : "order_"+rid(10);
+  openSheet("Test payment",`<p class="eyebrow">Simulated UPI checkout · ${esc(b.providerName)}</p><div class="bigamt">${inr(m.due)}</div>
+    <p class="small muted">Order <span class="mono">${esc(orderId)}</span> · ${esc(b.bookingNo)}</p>
+    <p class="small">In the real app this opens the payment gateway. The booking is confirmed only when the gateway's signed webhook arrives.</p>
+    <div class="row"><button class="btn block" data-act="gw" data-v="ok" data-id="${id}" data-order="${orderId}" data-amt="${m.due}" style="min-height:50px">Pay ${inr(m.due)}</button>
+    <button class="btn ghost" data-act="gw" data-v="fail" data-id="${id}">Simulate failure</button></div>
+    <button class="btn quiet sm" data-act="closeSheet">Close</button>`);
+}
+async function webhook(evt){
+  await Store.lock("b_"+evt.bookingId, async()=>{
+    const expect=await sha256([GATEWAY_SECRET,evt.id,evt.orderId,evt.amountP].join("|"));
+    if(expect!==evt.signature) throw new Error("Webhook rejected: signature does not match. Nothing was recorded.");
+    const b=await Store.get("bookings",evt.bookingId);
+    if((b.payment.events||[]).includes(evt.id)){ toast("Duplicate webhook "+evt.id+" ignored. No second charge."); return; }
+    const patch={payment:{paidP:(b.payment.paidP||0)+evt.amountP, events:[...(b.payment.events||[]),evt.id], orders:b.payment.orders||[]},
+      ledger:[...(b.ledger||[]),{type:"CUSTOMER_PAYMENT",amountP:evt.amountP,ref:evt.id,at:nowISO()}], version:(b.version||0)+1};
+    if(b.status==="ACCEPTED"){patch.status="CONFIRMED";patch.history=hist(b,"CONFIRMED","Payment confirmed by gateway");patch.history[patch.history.length-1].role="gateway";}
+    else patch.history=[...(b.history||[]),{at:nowISO(),to:b.status,by:"gateway",role:"gateway",note:"Balance payment received "+inr(evt.amountP)}];
+    await Store.update("bookings",b.id,patch);
+    toast("Payment of "+inr(evt.amountP)+" confirmed.");
+  });
+}
+async function cancelBooking(id){
+  await Store.lock("b_"+id, async()=>{
+    const b=await Store.get("bookings",id);
+    if(!["REQUESTED","ACCEPTED","CONFIRMED"].includes(b.status)) throw new Error("This booking can no longer be cancelled.");
+    if(b.customerMobile!==S.me.mobile) throw new Error("Only the customer can cancel.");
+    const m=money(b), early=new Date(b.start)-new Date()>=86400000;
+    const refund = m.paid ? (early ? m.paid : Math.max(0, m.paid-Math.round(b.price.service*0.5))) : 0;
+    const patch={status:"CANCELLED",version:(b.version||0)+1,history:hist(b,"CANCELLED",early||!m.paid?"Cancelled by customer":"Cancelled within 24 hours · 50% of service fee retained")};
+    if(refund){patch.refundedP=(b.refundedP||0)+refund;patch.ledger=[...(b.ledger||[]),{type:"REFUND",amountP:refund,ref:"rfnd_"+rid(8),at:nowISO()}];}
+    await Store.update("bookings",id,patch);
+    toast(refund?`Cancelled. ${inr(refund)} will be refunded to your payment method.`:"Booking cancelled.");
+  });
+}
+async function checkout(id){
+  await Store.lock("b_"+id, async()=>{
+    const b=await Store.get("bookings",id);
+    if(b.status!=="IN_PROGRESS"||b.providerId!==S.me.mobile) throw new Error("Only the helper can check out an active visit.");
+    const patch={status:"COMPLETED",version:(b.version||0)+1,session:{...(b.session||{}),checkOutAt:nowISO()},history:hist(b,"COMPLETED","Helper checked out · visit completed")};
+    if(b.shopping){
+      const s=b.shopping;
+      if(s.items.some(i=>i.status==="PENDING")) throw new Error("Mark every item as bought or not available first.");
+      if(s.items.some(i=>i.sub&&i.sub.status==="PROPOSED")) throw new Error("Wait for the customer to answer the substitution request.");
+      const spent=shoppingSpent(b);
+      if(s.items.some(i=>i.status==="BOUGHT"||i.status==="SUBSTITUTED")&&!(s.receipts||[]).length) throw new Error("Add the shop receipt before checking out.");
+      if(spent>s.budgetP) throw new Error(`Receipts total ${inr(spent)}, above the ${inr(s.budgetP)} cap. Contact the customer and operations.`);
+      const back=s.budgetP-spent;
+      patch.shopping={...s,reconciled:true};
+      patch.ledger=[...(b.ledger||[]),{type:"PURCHASE_SPEND",amountP:spent,ref:"receipts",at:nowISO()},...(back?[{type:"PURCHASE_REFUND",amountP:back,ref:"rfnd_"+rid(8),at:nowISO()}]:[])];
+      patch.refundedP=(b.refundedP||0)+back;
+    }
+    if(b.gov&&!(b.gov.updates||[]).length) throw new Error("Record at least one progress step for the government task.");
+    if(b.elderly&&b.elderly.notify) patch.history.push({at:nowISO(),to:"COMPLETED",by:"system",role:"system",note:"Family notified of check-out"});
+    await Store.update("bookings",id,patch);
+    toast("Visit completed.");
+  });
+}
+async function settle(id){
+  await Store.lock("b_"+id, async()=>{
+    const b=await Store.get("bookings",id), m=money(b);
+    if(b.status!=="COMPLETED") throw new Error("Only completed bookings can be settled.");
+    if(m.due>0) throw new Error("The customer still owes "+inr(m.due)+".");
+    if(S.incidents.some(i=>i.bookingId===id&&i.status==="OPEN")) throw new Error("Resolve the open incident first.");
+    const earned=b.price.service+b.price.travel+m.adjService, commission=Math.round(Math.max(0,b.price.service+m.adjService)*FEES.commissionPct/100), reimburse=shoppingSpent(b);
+    const payout=earned-commission+reimburse;
+    await Store.update("bookings",id,{status:"SETTLED",version:(b.version||0)+1,history:hist(b,"SETTLED","Helper payout settled"),
+      settlement:{earnedP:earned,commissionP:commission,reimburseP:reimburse,payoutP:payout,at:nowISO()},
+      ledger:[...(b.ledger||[]),{type:"COMMISSION",amountP:commission,ref:"stl",at:nowISO()},{type:"PROVIDER_PAYOUT",amountP:payout,ref:"payout_"+rid(8),at:nowISO()}]});
+    toast("Settled "+inr(payout)+" to "+b.providerName+".");
+  });
+}
+async function addIncident(b,type,text,severity){
+  await Store.set("incidents",rid(12),{bookingId:b.id,bookingNo:b.bookingNo,type,severity,text,reportedBy:S.me.mobile,role:S.mode==="provider"?"helper":"customer",status:"OPEN",createdAt:nowISO()});
+}
+
+const actions = {
+  lang:d=>{S.lang=d.v;lsSet("ksc-lang",d.v);render()},
+  mode:d=>{S.mode=d.v;go(homeOf(d.v),d.v==="admin"?{tab:"approvals"}:{})},
+  toggleDetails:()=>{S.details=!S.details;render()},
+  menu:()=>{S.drawer=!S.drawer;render()},
+  demo:d=>guard(async()=>{
+    const mobile=d.v==="provider"?"9000000001":DEMO_CUSTOMER.mobile;
+    const acct=await Store.get("accounts",mobile);
+    S.me={...(acct||{name:DEMO_CUSTOMER.name}),mobile}; S.otp=null; lsSet("ksc-session",{mobile}); loadSeen();
+    S.mode=d.v; const b=S.bookings.find(x=>x.id===DEMO_BOOKING_ID);
+    if(b) go("booking",{id:b.id}); else go(homeOf(d.v));
+    toast("Welcome to the demo. Everything you do stays in this browser.");
+  }),
+  pickSvc:d=>{go("find",{...readFind(),svc:d.v,run:S.p.run})},
+  signout:()=>{S.me=null;S.otp=null;lsSet("ksc-session",null);go("login")},
+  otpReset:()=>{S.otp=null;render()},
+  closeSheet:()=>closeSheet(),
+  startBook:d=>{const slot=JSON.parse(d.slot);go("book",{pid:d.pid,...slot})},
+  "tr:accept":d=>guard(()=>transition(d.id,"accept")),
+  "tr:reject":d=>guard(()=>transition(d.id,"reject")),
+  "tr:checkin":d=>guard(()=>transition(d.id,"checkin")),
+  checkout:d=>guard(()=>checkout(d.id)),
+  pay:d=>payFlow(d.id),
+  gw:d=>guard(async()=>{
+    if(d.v==="fail"){closeSheet();toast("Payment failed at the gateway. You were not charged.","bad");return}
+    const evt={id:"evt_"+rid(12),type:"payment.captured",bookingId:d.id,orderId:d.order,amountP:+d.amt};
+    evt.signature=await sha256([GATEWAY_SECRET,evt.id,evt.orderId,evt.amountP].join("|"));
+    S.lastEvent=evt; closeSheet(); await webhook(evt);
+  }),
+  replay:()=>guard(()=>webhook(S.lastEvent)),
+  forge:()=>guard(()=>webhook({...S.lastEvent,id:"evt_"+rid(12),amountP:S.lastEvent.amountP,signature:"0".repeat(64)})),
+  cancel:d=>openSheet("Cancel booking",`<h2>Cancel this booking?</h2><p>${new Date(bookingById(d.id).start)-new Date()>=86400000?"You'll get a full refund of anything paid.":"It starts within 24 hours, so 50% of the service fee is kept for the helper."}</p>
+    <div class="row"><button class="btn danger" data-act="cancelYes" data-id="${d.id}">Yes, cancel</button><button class="btn quiet" data-act="closeSheet">Keep booking</button></div>`),
+  cancelYes:d=>{closeSheet();guard(()=>cancelBooking(d.id))},
+  sos:d=>openSheet("Emergency",`<h2>Emergency</h2><p><b>For danger to life, call 112 first.</b> Then tell us what is happening so operations and the family are alerted.</p>
+    <p class="otpbox">112</p><form data-form="sos" data-id="${d.id}" class="plain"><label class="f" for="sos-text">What happened?<textarea id="sos-text" required></textarea></label>
+    <div class="row"><button class="btn danger" type="submit">Send SOS alert</button><button type="button" class="btn quiet" data-act="closeSheet">Close</button></div></form>`),
+  incident:d=>openSheet("Report a problem",`<h2>${esc(t("report"))}</h2><form data-form="incident" data-id="${d.id}" class="plain"><label class="f" for="inc-text">Describe the problem<textarea id="inc-text" required></textarea></label>
+    <div class="row"><button class="btn" type="submit">Send report</button><button type="button" class="btn quiet" data-act="closeSheet">Close</button></div></form>`),
+  dispute:d=>openSheet("Dispute",`<h2>Dispute this visit</h2><p class="small">The helper's payout is held while operations reviews it.</p><form data-form="dispute" data-id="${d.id}" class="plain"><label class="f" for="dsp-text">What went wrong?<textarea id="dsp-text" required></textarea></label>
+    <div class="row"><button class="btn" type="submit">Open dispute</button><button type="button" class="btn quiet" data-act="closeSheet">Close</button></div></form>`),
+  extraTime:d=>guard(async()=>{
+    const b=bookingById(d.id), minutes=30, svc=SVC[b.serviceCode];
+    const service=svc.mode==="HOURLY"?Math.round(b.price.rateP*minutes/60):Math.round(b.price.service*0.25);
+    const platform=Math.round(service*FEES.platformPct/100), amountP=service+platform+Math.round(platform*FEES.gstPct/100);
+    await Store.update("bookings",b.id,{adjustments:[...(b.adjustments||[]),{id:rid(6),minutes,amountP,serviceP:service,status:"PENDING",at:nowISO()}],history:hist(b,b.status,"Helper asked for 30 more minutes")});
+    toast("Request sent to the customer.");
+  }),
+  adj:d=>guard(async()=>{
+    const b=bookingById(d.id);
+    await Store.update("bookings",b.id,{adjustments:b.adjustments.map(a=>a.id===d.aid?{...a,status:d.v}:a),history:hist(b,b.status,d.v==="APPROVED"?"Customer approved extra time":"Customer declined extra time")});
+  }),
+  item:d=>guard(async()=>{
+    const b=bookingById(d.id), items=clone(b.shopping.items); items[+d.i].status=d.v;
+    await Store.update("bookings",b.id,{shopping:{items}});
+  }),
+  subPropose:d=>guard(async()=>{
+    const text=($("#sub-"+d.i)||{}).value; if(!text||!text.trim()) throw new Error("Type the substitute item first.");
+    const b=bookingById(d.id), items=clone(b.shopping.items); items[+d.i].sub={text:text.trim(),status:"PROPOSED"};
+    await Store.update("bookings",b.id,{shopping:{items},history:hist(b,b.status,"Substitute proposed: "+text.trim())});
+  }),
+  subDecide:d=>guard(async()=>{
+    const b=bookingById(d.id), items=clone(b.shopping.items), it=items[+d.i];
+    it.sub.status=d.v; it.status=d.v==="APPROVED"?"SUBSTITUTED":"UNAVAILABLE";
+    await Store.update("bookings",b.id,{shopping:{items},history:hist(b,b.status,d.v==="APPROVED"?"Substitute approved":"Substitute declined")});
+  }),
+  settle:d=>guard(()=>settle(d.id)),
+  suspend:d=>guard(async()=>{const p=S.providers.find(x=>x.id===d.id);await Store.update("providers",d.id,{status:"SUSPENDED",events:[...(p.events||[]),{at:nowISO(),to:"SUSPENDED",by:S.me.mobile}]});toast(p.name+" suspended.")}),
+  reinstate:d=>guard(async()=>{const p=S.providers.find(x=>x.id===d.id);await Store.update("providers",d.id,{status:"APPROVED",events:[...(p.events||[]),{at:nowISO(),to:"APPROVED",by:S.me.mobile}]});toast(p.name+" reinstated.")}),
+  expire:()=>guard(async()=>{for(const b of S.bookings.filter(b=>b.status==="REQUESTED"&&displayStatus(b)==="EXPIRED")) await Store.update("bookings",b.id,{status:"EXPIRED",history:hist(b,"EXPIRED","Expired · start time passed without a response")});toast("Stale requests expired.")})
+};
+
+const forms = {
+  sendMsg:async f=>{
+    const el=$("#msg-input"), text=(el&&el.value||"").trim(); if(!text) return;
+    const b=bookingById(f.dataset.id); if(!b) throw new Error("This booking is no longer available.");
+    const role=S.mode==="admin"?"operations":S.me.mobile===b.providerId?"helper":"customer";
+    el.value=""; autosize();
+    try{ await Store.set("messages",rid(12),{bookingId:b.id,from:S.me.mobile,name:S.me.name,role,text:text.slice(0,2000),at:nowISO()}); }
+    catch(e){ el.value=text; throw e; }
+  },
+  otpRequest:async f=>{
+    const mobile=$("#l-mobile").value.replace(/\D/g,"").slice(-10);
+    if(!/^[6-9]\d{9}$/.test(mobile)) throw new Error("Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9.");
+    const now=Date.now(), log=(S.sends[mobile]||[]).filter(t=>now-t<600000);
+    if(log.length>=3) throw new Error("Too many codes requested. Wait 10 minutes and try again.");
+    S.sends[mobile]=[...log,now];
+    const acct=await Store.get("accounts",mobile);
+    const code=String(crypto.getRandomValues(new Uint32Array(1))[0]%1000000).padStart(6,"0");
+    S.otp={mobile,code,exp:now+300000,tries:0,isNew:!acct,acct};
+    render();
+  },
+  otpVerify:async f=>{
+    const o=S.otp, now=Date.now();
+    if(o.lockUntil&&now<o.lockUntil) throw new Error("Too many wrong codes. Try again in a few minutes.");
+    if(now>o.exp){S.otp=null;render();throw new Error("That code has expired. Request a new one.");}
+    if($("#l-otp").value.trim()!==o.code){o.tries++;if(o.tries>=5)o.lockUntil=now+300000;throw new Error("That code is not right. "+(5-o.tries>0?(5-o.tries)+" attempts left.":"Locked for 5 minutes."));}
+    let acct=o.acct;
+    if(!acct){
+      const name=($("#l-name")||{}).value; if(!name||!name.trim()) throw new Error("Tell us your name.");
+      acct={mobile:o.mobile,name:name.trim(),language:S.lang,createdAt:nowISO(),status:"ACTIVE"};
+      await Store.set("accounts",o.mobile,acct);
+    }
+    S.me={...acct,mobile:o.mobile}; S.otp=null; lsSet("ksc-session",{mobile:o.mobile}); loadSeen();
+    S.mode="customer"; go("home");
+    toast("Signed in as "+S.me.name+".");
+  },
+  search:f=>{go("find",{svc:$("#s-svc").value,ward:$("#s-ward").value,date:$("#s-date").value,time:$("#s-time").value,dur:$("#s-dur").value,run:1})},
+  createBooking:()=>createBooking(),
+  saveProvider:async()=>{
+    const v=id=>{const el=document.getElementById(id);return el.type==="checkbox"?el.checked:el.value.trim()};
+    const services=SERVICES.filter(s=>v("p-svc-"+s.code)).map(s=>({code:s.code,rateP:toP(v("p-rate-"+s.code))}));
+    if(!services.length) throw new Error("Choose at least one service you offer.");
+    if(services.some(s=>s.rateP<5000)) throw new Error("Rates must be at least ₹50.");
+    const days=DAYS.map((_,i)=>i).filter(i=>v("p-day-"+i));
+    if(!days.length) throw new Error("Choose at least one day you're available.");
+    if(hm(v("p-to"))-hm(v("p-from"))<60) throw new Error("Your available hours must cover at least one hour.");
+    if(!v("p-agree")) throw new Error("Agree to the helper code to continue.");
+    const languages=[v("p-lang-ml")&&"ml",v("p-lang-en")&&"en"].filter(Boolean);
+    const existing=myProvider();
+    const data={name:v("p-name"),ward:v("p-ward"),radiusKm:Math.max(1,Math.min(15,+v("p-radius")||5)),bio:v("p-bio"),languages,services,days,from:v("p-from"),to:v("p-to"),
+      credentials:{idType:v("p-id"),police:v("p-police"),ref1:v("p-ref1"),ref2:v("p-ref2")}};
+    if(existing){
+      const addsElderly=services.some(s=>SVC[s.code].cat==="ELDERLY")&&!existing.services.some(s=>SVC[s.code].cat==="ELDERLY");
+      if(addsElderly&&existing.status==="APPROVED"&&!(existing.verification&&existing.verification.police)){data.status="PENDING";}
+      await Store.update("providers",existing.id,{...data,events:[...(existing.events||[]),{at:nowISO(),to:data.status||existing.status,by:S.me.mobile,note:"Profile updated"}]});
+      toast(data.status==="PENDING"?"Saved. Elderly services need police clearance, so your profile is back in review.":"Profile saved.");
+    } else {
+      await Store.set("providers",S.me.mobile,{...data,status:"PENDING",createdAt:nowISO(),events:[{at:nowISO(),to:"PENDING",by:S.me.mobile,note:"Application submitted"}]});
+      toast("Application submitted. We'll review it shortly.");
+    }
+    go("phome");
+  },
+  approve:async(f,submitter)=>{
+    const id=f.dataset.id, p=S.providers.find(x=>x.id===id), dec=submitter&&submitter.value;
+    const c=k=>document.getElementById(`ap-${k}-${id}`).checked;
+    if(dec==="APPROVED"){
+      if(!c("id")||!c("refs")||!c("train")) throw new Error("Check ID, references and training before approving.");
+      const elderly=(p.services||[]).some(s=>SVC[s.code].cat==="ELDERLY");
+      if(elderly&&!c("pcc")) throw new Error("This helper offers elderly companionship, so police clearance is required.");
+      const exp=new Date();exp.setFullYear(exp.getFullYear()+1);
+      await Store.update("providers",id,{status:"APPROVED",verification:{id:true,refs:true,police:c("pcc"),training:true,approvedAt:nowISO(),approvedBy:S.me.mobile,expiresAt:exp.toISOString()},events:[...(p.events||[]),{at:nowISO(),to:"APPROVED",by:S.me.mobile}]});
+      toast(p.name+" approved.");
+    } else {
+      const reason=document.getElementById("ap-reason-"+id).value.trim(); if(!reason) throw new Error("Give a reason so the applicant knows what to fix.");
+      await Store.update("providers",id,{status:"REJECTED",rejectReason:reason,events:[...(p.events||[]),{at:nowISO(),to:"REJECTED",by:S.me.mobile,note:reason}]});
+      toast(p.name+" declined.");
+    }
+  },
+  receipt:async f=>{
+    const b=bookingById(f.dataset.id), totalP=toP($("#r-total").value);
+    if(!totalP) throw new Error("Enter the receipt total.");
+    const spent=shoppingSpent(b)+totalP;
+    if(spent>b.shopping.budgetP) throw new Error(`That takes spending to ${inr(spent)}, over the ${inr(b.shopping.budgetP)} cap. Ask the customer before buying more.`);
+    await Store.update("bookings",b.id,{shopping:{receipts:[...(b.shopping.receipts||[]),{shop:$("#r-shop").value.trim(),totalP,note:$("#r-note").value.trim(),at:nowISO()}]},history:hist(b,b.status,"Receipt added "+inr(totalP))});
+    ["r-shop","r-total","r-note"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""}); toast("Receipt added.");
+  },
+  govUpdate:async f=>{
+    const b=bookingById(f.dataset.id), step=$("#g-step").value, ref=$("#g-ref").value.trim(), note=$("#g-note").value.trim();
+    await Store.update("bookings",b.id,{gov:{updates:[...(b.gov.updates||[]),{step,note,at:nowISO()}],refNo:ref||b.gov.refNo},history:hist(b,b.status,step)});
+    ["g-note"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""}); toast("Progress recorded.");
+  },
+  review:async f=>{
+    const b=bookingById(f.dataset.id);
+    if(b.review) throw new Error("You've already reviewed this visit.");
+    await Store.update("bookings",b.id,{review:{stars:+$("#rv-stars").value,text:$("#rv-text").value.trim(),at:nowISO()},history:hist(b,b.status,"Customer left a review")});
+    toast("Thanks for the review.");
+  },
+  sos:async f=>{const b=bookingById(f.dataset.id);await addIncident(b,"SOS",$("#sos-text").value.trim(),"CRITICAL");await Store.update("bookings",b.id,{history:hist(b,b.status,"SOS raised · operations and family alerted")});closeSheet();toast("SOS sent. Operations has been alerted.")},
+  incident:async f=>{const b=bookingById(f.dataset.id);await addIncident(b,"INCIDENT",$("#inc-text").value.trim(),"NORMAL");closeSheet();toast("Report sent to operations.")},
+  dispute:async f=>{
+    await Store.lock("b_"+f.dataset.id, async()=>{
+      const b=await Store.get("bookings",f.dataset.id);
+      if(b.status!=="COMPLETED") throw new Error("Only completed, unsettled visits can be disputed.");
+      await addIncident(b,"DISPUTE",$("#dsp-text").value.trim(),"NORMAL");
+      await Store.update("bookings",b.id,{status:"DISPUTED",version:(b.version||0)+1,history:hist(b,"DISPUTED","Customer opened a dispute")});
+    });
+    closeSheet(); toast("Dispute opened. The payout is on hold.");
+  },
+  resolve:async f=>{
+    const id=f.dataset.id, inc=S.incidents.find(i=>i.id===id), note=document.getElementById("rs-note-"+id).value.trim();
+    const refundEl=document.getElementById("rs-refund-"+id);
+    if(inc.type==="DISPUTE"){
+      await Store.lock("b_"+inc.bookingId, async()=>{
+        const b=await Store.get("bookings",inc.bookingId), m=money(b), refund=toP(refundEl?refundEl.value:"0");
+        if(refund>m.paid-m.refunded) throw new Error("Refund can't exceed what the customer paid, less earlier refunds.");
+        const patch={status:b.status==="DISPUTED"?"COMPLETED":b.status,version:(b.version||0)+1,history:hist(b,b.status==="DISPUTED"?"COMPLETED":b.status,"Dispute resolved"+(refund?" · refund "+inr(refund):""))};
+        if(refund){patch.refundedP=(b.refundedP||0)+refund;patch.ledger=[...(b.ledger||[]),{type:"REFUND",amountP:refund,ref:"rfnd_"+rid(8),at:nowISO()}];
+          patch.adjustments=[...(b.adjustments||[]),{id:rid(6),minutes:0,amountP:-refund,serviceP:-refund,status:"APPROVED",at:nowISO(),note:"Dispute refund"}];}
+        await Store.update("bookings",b.id,patch);
+      });
+    }
+    await Store.update("incidents",id,{status:"RESOLVED",resolution:note,resolvedAt:nowISO(),resolvedBy:S.me.mobile});
+    toast("Incident resolved.");
+  }
+};
+
+
+const SAMPLE_HELPERS = (()=>{const v={id:true,refs:true,police:true,training:true,approvedAt:"2026-10-12T18:00:00Z",approvedBy:"seed",expiresAt:"2027-10-12T18:00:00Z"};
+  const mk=(id,name,ward,radiusKm,bio,languages,services,days,from,to,status,police)=>[id,{name,sample:true,ward,radiusKm,bio,languages,services:services.map(([code,r])=>({code,rateP:r*100})),days,from,to,
+    credentials:{idType:"Voter ID",police:police?"Submitted":"Not applying",ref1:"Sample reference",ref2:"Sample reference"},status,...(status==="APPROVED"?{verification:{...v,police}}:{}),createdAt:"2026-10-12T18:00:00Z",events:[{at:"2026-10-12T18:00:00Z",to:status,by:"seed",note:"Sample helper"}]}];
+  return [
+    mk("9000000001","Anitha Mohan","W02",5,"Retired school teacher. Patient walking partner and good with phones and video calls.",["ml","en"],[["ELDERLY_WALKING",200],["ELDERLY_VISIT",180],["ELDERLY_DIGITAL",200],["ELDERLY_HOSPITAL",260]],[0,1,2,3,4,5,6],"07:00","19:00","APPROVED",true),
+    mk("9000000002","Joseph Varghese","W01",6,"Knows every shop around the market. Itemised receipts, every time.",["ml"],[["SHOP_GROCERY",170],["SHOP_PRESCRIPTION",140],["SHOP_PARCEL",120],["ELDERLY_WALKING",190]],[1,2,3,4,5,6],"07:00","19:00","APPROVED",true),
+    mk("9000000003","Fathima Rasheed","W08",8,"Former Akshaya centre operator. Helps with certificate applications and follow-ups.",["ml","en"],[["GOV_AKSHAYA",220],["GOV_CERTIFICATE",400],["GOV_FOLLOWUP",150]],[1,2,3,4,5],"09:00","17:00","APPROVED",false),
+    mk("9000000004","Suresh Nair","W04",4,"Applied last week. Waiting for police clearance and reference calls.",["ml"],[["ELDERLY_HOSPITAL",250],["SHOP_GROCERY",160]],[0,1,2,3,4,5,6],"06:00","20:00","PENDING",true)];
+})();
+
+const DEMO_CUSTOMER={mobile:"9847000000",name:"Raju Augustine"}, DEMO_BOOKING_ID="demo-walk-1";
+async function seedDemo(){
+  const now=Date.now(), iso=ms=>new Date(ms).toISOString();
+  const day=istDate(new Date(now+86400000)), start=new Date(`${day}T09:00:00+05:30`), end=new Date(start.getTime()+7200000);
+  await Store.set("accounts",DEMO_CUSTOMER.mobile,{mobile:DEMO_CUSTOMER.mobile,name:DEMO_CUSTOMER.name,language:"en",createdAt:iso(now-7200000),status:"ACTIVE"});
+  const svc=SVC.ELDERLY_WALKING, q=quote(svc,20000,120,dist("W02","W02"),{});
+  const h=(m,to,role,by,note,from)=>({at:iso(now-m*60000),from,to,by,role,note});
+  await Store.set("bookings",DEMO_BOOKING_ID,{bookingNo:"KSC-DEMO-W4LK",customerMobile:DEMO_CUSTOMER.mobile,customerName:DEMO_CUSTOMER.name,providerId:"9000000001",providerName:"Anitha Mohan",
+    serviceCode:"ELDERLY_WALKING",category:"ELDERLY",ward:"W02",address:"Puthenveedu, Temple Road",notes:"Gate code 1947. Amma prefers Malayalam.",start:start.toISOString(),end:end.toISOString(),durationMin:120,
+    status:"ACCEPTED",version:1,createdAt:iso(now-95*60000),price:q,payment:{paidP:0,events:[],orders:[]},refundedP:0,ledger:[],adjustments:[],review:null,settlement:null,
+    elderly:{beneficiary:"Mary Augustine",relation:"Parent",emergency:"Raju, 98470 00000",instructions:"Slow walk to the temple pond and back. Uses a walking stick.",consent:true,notify:true},shopping:null,gov:null,
+    history:[h(95,"REQUESTED","customer",DEMO_CUSTOMER.mobile,"Booking requested",null),h(70,"ACCEPTED","helper","9000000001","Helper accepted","REQUESTED")]});
+  const msgs=[[90,DEMO_CUSTOMER,"customer","Hi Anitha, Amma likes to walk to the temple pond in the morning. She is slow but steady."],
+    [68,{mobile:"9000000001",name:"Anitha Mohan"},"helper","Namaskaram! Happy to help. I'll bring an umbrella in case it rains. Does she need anything to drink on the way?"],
+    [66,{mobile:"9000000001",name:"Anitha Mohan"},"helper","I'll check in when I reach the gate."],
+    [60,DEMO_CUSTOMER,"customer","A small bottle of water is enough. Thank you!"]];
+  let n=0; for(const [m,who,role,text] of msgs) await Store.set("messages","demo-msg-"+(++n),{bookingId:DEMO_BOOKING_ID,from:who.mobile,name:who.name,role,text,at:iso(now-m*60000)});
+}
+/* ---------- events ---------- */
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]");
+  if(g&&!e.target.closest("[data-act]")&&!e.target.closest("form [type=submit]")){
+    const [v,tab]=g.dataset.go.split(":");
+    const p={};
+    if(tab) p.tab=tab; if(g.dataset.tab) p.tab=g.dataset.tab; if(g.dataset.f) p.f=g.dataset.f;
+    if(g.dataset.id) p.id=g.dataset.id; if(g.dataset.svc) p.svc=g.dataset.svc;
+    if(!S.me) return;
+    go(v,p); return;
+  }
+  const a=e.target.closest("[data-act]");
+  if(a&&actions[a.dataset.act]){ e.preventDefault(); actions[a.dataset.act]({...a.dataset}); }
+  if(e.target.id==="sheet") closeSheet();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ if(S.drawer){S.drawer=false;render();} else if(S.sheet) closeSheet(); else if(S.details){S.details=false;render();} }
+  if(e.target.id==="msg-input"&&e.key==="Enter"&&!e.shiftKey&&!e.isComposing){ e.preventDefault(); e.target.form.requestSubmit(); }
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches('[role="link"]')){e.preventDefault();e.target.click();}
+});
+document.addEventListener("submit",e=>{
+  const f=e.target.closest("form[data-form]"); if(!f) return;
+  e.preventDefault();
+  const fn=forms[f.dataset.form]; if(fn) guard(()=>fn(f,e.submitter));
+});
+document.addEventListener("input",e=>{ if(e.target.id==="msg-input") autosize(); if(e.target.matches("[data-live]")) render(); });
+
+/* ---------- boot ---------- */
+render();
+(async()=>{
+  await Store.init();
+  let n=0, booted=false; const loaded=()=>{ if(++n<4) return; boot(); };
+  async function boot(){
+    if(booted) return; booted=true;
+    if(Store.mode==="local"&&!S.providers.length){ for(const [id,d] of SAMPLE_HELPERS){ const acct={mobile:id,name:d.name,language:"ml",createdAt:d.createdAt,status:"ACTIVE"}; await Store.set("accounts",id,acct); await Store.set("providers",id,d); } await seedDemo(); }
+    const sess=lsGet("ksc-session");
+    if(sess&&sess.mobile){ const acct=await Store.get("accounts",sess.mobile); if(acct){ S.me={...acct,mobile:sess.mobile}; loadSeen(); S.mode="customer"; S.view="home"; } }
+    lastKey=""; render();
+  }
+  let knownMsgs=null;
+  const sub=(col,key)=>{ let first=true; Store.watch(col,list=>{
+    if(col==="messages"&&S.me){
+      if(knownMsgs) for(const m of list){ if(knownMsgs.has(m.id)||m.from===S.me.mobile) continue;
+        const b=bookingById(m.bookingId); if(!b) continue;
+        const mine=S.mode==="admin"||b.customerMobile===S.me.mobile||b.providerId===S.me.mobile;
+        if(mine&&!(S.view==="booking"&&S.p.id===b.id)) toast((m.role==="operations"?"Operations":m.name)+": "+m.text.slice(0,80)); }
+      knownMsgs=new Set(list.map(m=>m.id));
+    }
+    S[key]=list; if(first){first=false;loaded()} if(booted) render(); }); };
+  sub("providers","providers"); sub("bookings","bookings"); sub("incidents","incidents"); sub("messages","messages");
+  setTimeout(boot,5000);
+})();
+</script>
+
+</body></html>
